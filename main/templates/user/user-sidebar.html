@@ -1,0 +1,44 @@
+<div class="side-navbare">
+    <hr>
+    <div class="list-group">
+        <ul class="list-unstyled">
+            <li><a href="{% url 'my_dashboard' %}" class="list-group-item {% if request.path == '/my-dashboard' %}active {% endif %}"><i class="icon-home"></i> Painel</a></li>
+            <li>
+                <a href="{% url 'edit-profile' %}" class="list-group-item {% if request.path == '/edit-profile' %}active {% endif %}"> <i class="icon-interface-windows"></i> Perfil </a>
+            </li>
+            <li>
+                <a href="{% url 'my_orders' %}" class="list-group-item {% if request.path == '/my-orders' %}active {% endif %}"><i class="icon-bill"></i></i> Pedidos </a>
+            </li>
+            <li>
+                <a href="{% url 'my_wishlist' %}" class="list-group-item {% if request.path == '/my-wishlist' %}active {% endif %}"> <i class="fa fa-heart"></i> Lista de Desejos </a>
+            </li>
+            <li>
+                <a href="{% url 'my-reviews' %}" class="list-group-item {% if request.path == '/my-reviews' %}active {% endif %}"> <i class="icon-website"></i> Minhas Críticas </a>
+            </li>
+            <li>
+                <a href="{% url 'my-addressbook' %}" class="list-group-item {% if request.path == '/my-addressbook' %}active {% endif %}"> <i class="fa fa-globe"></i> Lista de endereços </a>
+
+            </li>
+
+            <li>
+                <a href="{% url 'password_change' %}" class="list-group-item {% if request.path == '/accounts/password_change/' %}active {% endif %}"> <i class="icon-user"></i> Mudança de senha </a>
+
+            </li>
+        </ul><span class="heading"> Logout</span>
+        <ul class="list-unstyled">
+            <li>
+                <a href="{% url 'logout' %}" class="text-danger list-group-item"> <i class="icon-close"></i> Sair </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- <div class="list-group">
+	<a href="{% url 'my_dashboard' %}" class="list-group-item {% if request.path == '/my-dashboard' %}active {% endif %}">Painel</a>
+	<a href="{% url 'edit-profile' %}" class="list-group-item {% if request.path == '/edit-profile' %}active {% endif %}">Perfil</a>
+	<a href="{% url 'my_orders' %}" class="list-group-item {% if request.path == '/my-orders' %}active {% endif %}">Pedidos</a>
+	<a href="{% url 'my_wishlist' %}" class="list-group-item {% if request.path == '/my-wishlist' %}active {% endif %}">Lista de Desejos</a>
+	<a href="{% url 'my-reviews' %}" class="list-group-item {% if request.path == '/my-reviews' %}active {% endif %}">Minhas Críticas</a>
+	<a href="{% url 'my-addressbook' %}" class="list-group-item {% if request.path == '/my-addressbook' %}active {% endif %}">Lista de endereços</a>
+	<a href="{% url 'password_change' %}" class="list-group-item {% if request.path == '/accounts/password_change/' %}active {% endif %}">Mudança de senha</a>
+	<a href="{% url 'logout' %}" class="text-danger list-group-item">Sair</a>
+</div> -->

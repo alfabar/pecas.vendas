@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<!--====================================================
+                       HOME-P
+======================================================-->
+<div id="home-p" class="home-p pages-head1 text-center">
+    <div class="container">
+        <h1 class="wow fadeInUp" data-wow-delay="0.1s">Businessbox Latest News</h1>
+        <p>Live</p>
+    </div>
+    <!--/end container-->
+</div>
+<hr>
+<!--====================================================
+                        news-p1
+======================================================-->
+<section id="news-p1" class="news-p1">
+    <div class="container">
+        <div class="row">
+            {% if data %} {% for cat in data %}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="desc-comp-offer-cont">
+                        <div class="thumbnail-blogs">
+                            <div class="caption">
+                                <i class="fa fa-chain"></i>
+                            </div>
+                            <a href="/category-product-list/{{cat.id}}"><img src="/media/{{cat.image}}" class="card-img-top" alt="{{cat.title}}" /></a>
+                        </div>
+                        <h3>{{cat.title}}</h3>
+                        <a href="/category-product-list/{{cat.id}}"><i class="fa fa-arrow-circle-o-right"></i> Saiba mais</a>
+                    </div>
+                </div>
+            </div>{% endfor %} {% endif %}
+        </div>
+    </div>
+</section>{% endblock %}
+
+<!-- <main class="container my-4">
+    
+    <h3 class="my-4 border-bottom pb-1">Categorias</h3>
+    <div class="row">
+        {% if data %} {% for cat in data %}
+        <div class="col-md-3 mb-4">
+            <div class="card shadow">
+                <a href="/category-product-list/{{cat.id}}"><img src="/media/{{cat.image}}" class="card-img-top" alt="{{cat.title}}" /></a>
+                <div class="card-body">
+                    <h6 class="card-text"><a href="#">{{cat.title}}</a></h6>
+                </div>
+            </div>
+        </div>
+        {% endfor %} {% endif %}
+    </div>
+</main> -->

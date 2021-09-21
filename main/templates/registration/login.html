@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<main class="container my-4">
+    <!-- Featured Products -->
+    <h3 class="my-4 border-bottom pb-1">Conecte-se</h3>
+    <table class="table table-bordered">
+        <form method="post">
+            {% csrf_token %} {{form.as_table}}
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Login" class="btn btn-general btn-white text-center" />
+                </td>
+            </tr>
+        </form>
+    </table>
+    <p><a href="{% url 'password_reset' %}" class="text-danger">Redefinir senha?</a></p>
+    <p>Se você não é registrado, por favor <a href="{% url 'signup' %}">Assine aqui</a>.</p>
+
+</main>
+{% endblock %}

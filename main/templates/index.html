@@ -1,0 +1,170 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/careers.css' %}">
+<!--==================================================== HOME =====================================================-->
+<section id="home">
+    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            <div class="carousel-item active slides">
+                <div class="overlay"></div>
+                <div class="slide-1"></div>
+                <div class="hero ">
+                    <hgroup class="wow fadeInUp">
+                        <h1>Peças <span><a href="" class="typewrite" data-period="2000"
+                        data-type='[ " Carros", " Motos"," Caminhão"," Tratores"]'>
+                        <span class="wrap"></span></a>
+                            </span>
+                        </h1>
+                        <h3>Temos um grande Estoque a pronta entrega em sua região</h3>
+                    </hgroup>
+                    <button class="btn btn-general btn-green wow fadeInUp" role="button"> Confira </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="shop-p1" class="shop-p1">
+    <main class="container my-4">
+        <!-- Featured Products -->
+        <h3 class="my-4 border-bottom pb-1">Produtos em destaque</h3>
+        <div class="row">
+            {% for product in data %}
+            <div class="col-md-3 mb-4">
+                <div class="card shadow">
+                    <a href="/product/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
+                    <div class="card-body">
+                        <p class="card-text"><a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a></p>
+                        <h6>R$ <strong class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</strong></h6>
+                    </div>
+                    <div class="card-footer">
+                        <p>
+                            <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i>
+                        </p>
+                        {{product.productattribute_set.first.color.title}}<br> {{product.productattribute_set.first.size.title}}
+                        <input type="hidden" value="1" class="form-control product-qty-{{product.id}}" id="productQty" />
+                        <input type="hidden" class="product-image-{{product.id}}" value="{{product.productattribute_set.first.image}}" />
+                        <input type="hidden" class="product-id-{{product.id}}" value="{{product.id}}" />
+                        <input type="hidden" class="product-title-{{product.id}}" value="{{product.title}}" />
+                        <div></div><br>
+                        <button class="btn btn-general btn-white add-to-cart" data-index="{{product.id}}"><i class="fa fa-shopping-cart"></i></button> {% if user.is_authenticated %}
+                        <button class="btn btn-general btn-green add-wishlist" data-product="{{product.id}}"><i class="fa fa-heart"></i></button> {% else %}
+                        <button class="btn btn-general btn-green disabled"><i class="fa fa-heart"></i></button> {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="my-4 text-center"><a href="{% url 'product-list' %}" class="btn btn-dark btn-sm">Todos Produtos <i class="fa fa-long-arrow-alt-right"></i></a></p>
+    </main>
+</section>
+<!-- Home Slider -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        {% for promocao in promocaos %} {% if forloop.counter == 1 %}
+        <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}" class="active"></li>
+        {% else %}
+        <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter}}"></li>
+        {% endif %} {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% for promocao in promocaos %} {% if forloop.counter == 1 %}
+        <div class="carousel-item active">
+            {% else %}
+            <div class="carousel-item">
+                {% endif %}
+                <img src="/media/{{promocao.img}}" class="d-block w-100" alt="...">
+            </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Proximo</span>
+        </a>
+    </div>
+</div>
+<!--====================================================
+                        CAREER-P2
+======================================================-->
+<div class="overlay-career-p2"></div>
+<section id="thought" class="bg-parallax career-p2-bg">
+    <div class="container">
+        <div id="row" class="row title-bar-career-p2">
+            <div class="col-md-4 ">
+                <h1>100%</h1>
+            </div>
+            <div class="col-md-8 ">
+                <p class="wow fadeInUp " data-wow-delay="0.4s">Businessbox will deliver value to all the stakeholders and will attain excellence and leadership through such delivery of value. We will strive to support the stakeholders in all activities related to us.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====================================================
+                   CAREER-P3
+======================================================-->
+<div class="overlay-career-p3"></div>
+<section id="career-p3">
+    <div class="container-fluide">
+        <div class="row career-p3-title">
+            <div class="col-md-12">
+                <h3 class="text-center">Our Business Process</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="career-p3-cont text-center">
+                    <i class="fa fa-superpowers"></i>
+                    <h5>Plan</h5>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="career-p3-cont text-center">
+                    <i class="fa fa-snowflake-o"></i>
+                    <h5>Seamless</h5>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="career-p3-cont text-center">
+                    <i class="fa fa-send-o"></i>
+                    <h5>Care</h5>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="career-p3-cont text-center">
+                    <i class="fa fa-sun-o"></i>
+                    <h5>Transit</h5>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="career-p3-cont text-center">
+                    <i class="fa fa-crosshairs"></i>
+                    <h5>Vacation</h5>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="career-p3-cont text-center">
+                    <i class="fa fa-gift"></i>
+                    <h5>Enjoy</h5>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="career-p3-cont text-center">
+                    <i class="fa fa-plane"></i>
+                    <h5>Celebrate</h5>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="career-p3-cont text-center">
+                    <i class="fa fa-life-buoy"></i>
+                    <h5>Contrary</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

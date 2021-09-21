@@ -1,0 +1,52 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'product-filter.js' %}"></script>
+<div class="col-sm col-sm-offset-3 col-xs-offset-0">
+    <div class="card no-border">
+        <div id="chat" class="conv-form-wrapper">
+            <form action="" method="GET" class="hidden">
+                <select data-conv-question="Olá! Sou um bot criado a partir de um formulário HTML. Posso mostrar alguns recursos? (esta pergunta vem de um seleto)" name="first-question">
+                    <option value="yes">Sim</option>
+                    <option value="sure">Certo!</option>
+                </select>
+                <input type="text" name="name" data-conv-question="Tudo bem! Primeiro, diga-me o seu nome completo, por favor. | Ok! Por favor, me diga seu nome primeiro.">
+                <input type="text" data-conv-question="Olá Caro Cliente, {name}:0! É um prazer conhecer você.(note que esta pergunta não espera nenhuma resposta)" data-no-answer="true">
+                <input type="text" data-conv-question="Este plugin também oferece suporte a seleção múltipla. Vamos ver um exemplo." data-no-answer="true">
+                <select name="multi[]" data-conv-question="Que tipo de música você gosta?" multiple>
+                    <option value="Rock">Rock</option>
+                    <option value="Pop">Pop</option>
+                    <option value="Country">Country</option>
+                    <option value="Classic">Classic</option>
+                </select>
+                <select name="programmer" data-callback="storeState" data-conv-question="Então, você é um programador? (esta pergunta bifurcará a conversa com base em sua resposta)">
+                    <option value="yes">Sim</option>
+                    <option value="no">Não</option>
+                </select>
+                <div data-conv-fork="programmer">
+                    <div data-conv-case="yes">
+                        <input type="text" data-conv-question=" Um colega programador! Legal." data-no-answer="true">
+                    </div>
+                    <div data-conv-case="no">
+                        <select name="thought" data-conv-question="Você já pensou em aprender? Programar é divertido!">
+                            <option value="yes">Sim</option>
+                            <option value="no">Não..</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="text" data-conv-question="convForm também oferece suporte a padrões regex. Olhar:" data-no-answer="true">
+                <input data-conv-question="Digite seu e-mail" data-pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" id="email" type="email" name="email" required placeholder="Qual é seu email">
+                <input data-conv-question="Agora me conte um segredo (como uma senha)" type="password" data-minlength="6" id="senha" name="password" required placeholder="password">
+                <select data-conv-question="Selects também oferece suporte a funções de retorno de chamada. Por exemplo, tente um destes:">
+                    <option value="google" data-callback="google">Google</option>
+                    <option value="bing" data-callback="bing">Bing</option>
+                </select>
+                <select name="callbackTest" data-conv-question="Você pode fazer coisas interessantes com funções de retorno de chamada. Quer voltar para a pergunta do 'programador' antes?">
+                    <option value="yes" data-callback="rollback">Sim</option>
+                    <option value="no" data-callback="restore">Não</option>
+                </select>
+                <select data-conv-question="É isso! Se você gosta de mim, considere doar! Se você precisar de suporte, entre em contato comigo. Quando o formulário chega ao fim, o plugin o envia normalmente, como você o havia preenchido." id="">
+                    <option value="">Awesome!</option>
+                </select>
+            </form>
+        </div>
+    </div>
+</div>
