@@ -27,7 +27,7 @@ def lista_categoria(request):
     return render(request,'category_list.html',{'data':data})
 
 # Marca
-def brand_list(request):
+def lista_marca(request):
     data=Brand.objects.all().order_by('-id')
     return render(request,'brand_list.html',{'data':data})
 
