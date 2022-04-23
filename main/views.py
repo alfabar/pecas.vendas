@@ -21,10 +21,6 @@ def home(request):
 	data1=Product.objects.filter(is_featured=True).order_by('-id')
 	return render(request,'index.html',{'data':data,'banners':banners,'data1':data1,'promocaos':promocaos})
 
-# Contato
-def contato(request):
-    return render(request,'contato.html')
-
 # Categoria
 def category_list(request):
     data=Category.objects.all().order_by('-id')

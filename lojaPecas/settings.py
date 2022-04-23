@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'main',
     'jet.dashboard',
     'jet',
+    'contato',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
