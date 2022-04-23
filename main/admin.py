@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Banner,Promocao,Category,Brand,Color,Size,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist,UserAddressBook
+from .models import Banner,Promocao,Categoria,Brand,Color,Size,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist,UserAddressBook
 
 # admin.site.register(Banner)
 admin.site.register(Brand)
@@ -14,9 +14,9 @@ class PromocaoAdmin(admin.ModelAdmin):
     list_display=('alt_text','image_tag')	
 admin.site.register(Promocao,PromocaoAdmin)
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoriaAdmin(admin.ModelAdmin):
 	list_display=('title','image_tag')
-admin.site.register(Category,CategoryAdmin)
+admin.site.register(Categoria,CategoriaAdmin)
 
 class ColorAdmin(admin.ModelAdmin):
 	list_display=('title','color_bg')
