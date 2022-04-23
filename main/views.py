@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
-from .models import Banner,Promocao,Category,Brand,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist,UserAddressBook
+from .models import Banner,Promocao,Categoria,Brand,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist,UserAddressBook
 from django.db.models import Max,Min,Count,Avg
 from django.db.models.functions import ExtractMonth
 from django.template.loader import render_to_string
@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
 
 # Home Page
-def home(request):
+def home(request): 
 	banners=Banner.objects.all().order_by('-id')
 	data=Product.objects.filter(is_featured=True).order_by('-id')
 	promocaos=Promocao.objects.all().order_by('-id')
@@ -22,8 +22,8 @@ def home(request):
 	return render(request,'index.html',{'data':data,'banners':banners,'data1':data1,'promocaos':promocaos})
 
 # Categoria
-def category_list(request):
-    data=Category.objects.all().order_by('-id')
+def lista_categoria(request):
+    data=Categoria.objects.all().order_by('-id')
     return render(request,'category_list.html',{'data':data})
 
 # Marca
@@ -41,7 +41,7 @@ def product_list(request):
 
 # Lista de produtos de acordo com a categoria
 def category_product_list(request,cat_id):
-	category=Category.objects.get(id=cat_id)
+	category=Categoria.objects.get(id=cat_id)
 	data=Product.objects.filter(category=category).order_by('-id')
 	return render(request,'category_product_list.html',{
 			'data':data,
