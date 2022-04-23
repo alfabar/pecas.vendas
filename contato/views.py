@@ -2,7 +2,7 @@ from django.http import JsonResponse, HttpResponsePermanentRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.core.mail import send_mail
-
+from django.template import RequestContext
 
 def PagContato(request):
     if request.method == "POST":
@@ -17,8 +17,7 @@ def PagContato(request):
             mensagem_email, #Do email - remetente
             ['alfa_bar@hotmail.com'], #Para - destinatario
         )
+        return render(request,'contato.html', {'mensagem_nome': mensagem_nome})
 
-
-        
-    return render(request,'contato.html')
-
+    else:
+        return render(request, 'contato.html', {})
