@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from paypal.standard.forms import PayPalPaymentsForm
 
 # Home Page
-def home(request): 
+def home(request):
 	banners=Banner.objects.all().order_by('-id')
 	data=Product.objects.filter(is_featured=True).order_by('-id')
 	promocaos=Promocao.objects.all().order_by('-id')
@@ -32,7 +32,7 @@ def lista_marca(request):
     return render(request,'brand_list.html',{'data':data})
 
 # Lista de Produtos
-def product_list(request):
+def lista_produto(request):
 	total_data=Product.objects.count()
 	data=Product.objects.all().order_by('-id')[:3]
 	min_price=ProductAttribute.objects.aggregate(Min('price'))
@@ -40,15 +40,13 @@ def product_list(request):
 	return render(request,'product_list.html',{'data':data,'total_data':total_data,'min_price':min_price,'max_price':max_price,})
 
 # Lista de produtos de acordo com a categoria
-def category_product_list(request,cat_id):
+def lista_produto_categoria(request,cat_id):
 	category=Categoria.objects.get(id=cat_id)
 	data=Product.objects.filter(category=category).order_by('-id')
-	return render(request,'category_product_list.html',{
-			'data':data,
-			})
+	return render(request,'category_product_list.html',{'data':data,})
 
 # Lista de produtos de acordo com a marca
-def brand_product_list(request,brand_id):
+def lista_produto_marca(request,brand_id):
 	brand=Brand.objects.get(id=brand_id)
 	data=Product.objects.filter(brand=brand).order_by('-id')
 	return render(request,'category_product_list.html',{

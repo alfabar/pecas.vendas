@@ -39,11 +39,10 @@
                     </td>
                     <td data-th="Preço">R$ {{item.price}}</td>
                     <td data-th="Quantidade">
-                        <input type="number" class="form-control text-center" value="1">
+                        <input type="number" class="form-control text-center product-qty-{{product_id}}" value="{{item.qty}}" style="vertical-align: bottom;" />
                     </td>
                     <td data-th="Subtotal" class="text-center">R$ {% widthratio item.price 1 item.qty %}</td>
                     <td class="actions" data-th="">
-                        <input type="number" class="product-qty-{{product_id}}" value="{{item.qty}}" style="vertical-align: bottom;" />
                         <button class="btn btn-info btn-sm update-item" data-item="{{product_id}}"><i class="fa fa-refresh"></i></button>
                         <button class="btn btn-danger btn-sm delete-item" data-item="{{product_id}}"><i class="fa fa-trash"></i></button>
                     </td>
