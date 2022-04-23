@@ -9,7 +9,6 @@ def PagContato(request):
         mensagem_nome = request.POST['mensagem-nome']
         mensagem_email = request.POST['mensagem-email']
         mensagem = request.POST['mensagem']
-
         # enviar email
         send_mail(
             mensagem_nome, #assunto
