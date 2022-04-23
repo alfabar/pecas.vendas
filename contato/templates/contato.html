@@ -45,24 +45,36 @@
 <!--====================================================
                       CONTACT-P2 
 ======================================================-->
+{% if mensagem_nome %}
+<center>
+    <h2> Obrigado {{ mensagem_nome }}! </h2>
+    <p>Seu email será respondido em breve!</p>
+</center>
+{% else %}
 <service class="contact-p2" id="contact-p2">
     <div class="container">
-        <div class="row con-form">
-            <div class="col-md-4">
-                <input type="text" name="full-name" placeholder="Nome Completo" class="form-control">
+        <form action="" method="POST">{% csrf_token %}
+            <div class="row con-form">
+                <div class="col-md-4">
+                    <input type="text" name="mensagem-nome" placeholder="Nome Completo" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="mensagem-email" placeholder="Endereço e-mail" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="mensagem" placeholder="Assunto" class="form-control">
+                </div>
+                <div class="col-md-12">
+                    <textarea name="" id=""></textarea>
+                </div>
+                <div class="col-md-12 sub-but">
+                    <button class="btn btn-general btn-white" type="submit">Enviar</button>
+                </div>
             </div>
-            <div class="col-md-4">
-                <input type="text" name="email" placeholder="Endereço e-mail" class="form-control">
-            </div>
-            <div class="col-md-4">
-                <input type="text" name="subject" placeholder="Assunto" class="form-control">
-            </div>
-            <div class="col-md-12"><textarea name="" id=""></textarea></div>
-            <div class="col-md-12 sub-but"><button class="btn btn-general btn-white" role="button">Enviar</button></div>
-        </div>
+        </form>
     </div>
 </service>
-
+{% endif %}
 <!--====================================================
                      MAP
 ======================================================-->
