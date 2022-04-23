@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.html import mark_safe
 from django.contrib.auth.models import User
 # Banner
-class Banner(models.Model):
+class Banner(models.Model): 
     img=models.ImageField(upload_to="banner_imgs/")
     alt_text=models.CharField(max_length=300)
 
@@ -30,7 +30,7 @@ class Promocao(models.Model):
         return self.alt_text
 
 # Categoria
-class Category(models.Model):
+class Categoria(models.Model):
     title=models.CharField(max_length=100)
     image=models.ImageField(upload_to="cat_imgs/")
 
@@ -85,7 +85,7 @@ class Product(models.Model):
     slug=models.CharField(max_length=400)
     detail=models.TextField()
     specs=models.TextField()
-    category=models.ForeignKey(Category,on_delete=models.CASCADE)
+    category=models.ForeignKey(Categoria,on_delete=models.CASCADE)
     brand=models.ForeignKey(Brand,on_delete=models.CASCADE)
     status=models.BooleanField(default=True)
     is_featured=models.BooleanField(default=False)
