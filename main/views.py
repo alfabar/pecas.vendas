@@ -17,13 +17,9 @@ from paypal.standard.forms import PayPalPaymentsForm
 def home(request):
 	banners=Banner.objects.all().order_by('-id')
 	data=Product.objects.filter(is_featured=True).order_by('-id')
-	return render(request,'index.html',{'data':data,'banners':banners})
-
-# Home Promocao
-def home(request):
 	promocaos=Promocao.objects.all().order_by('-id')
-	data=Product.objects.filter(is_featured=True).order_by('-id')
-	return render(request,'index.html',{'data':data,'promocaos':promocaos})
+	data1=Product.objects.filter(is_featured=True).order_by('-id')
+	return render(request,'index.html',{'data':data,'banners':banners,'data1':data1,'promocaos':promocaos})
 
 # Contato
 def contato(request):
