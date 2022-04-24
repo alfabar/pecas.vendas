@@ -41,7 +41,6 @@
     <link rel="stylesheet" href="{% static 'css/ui-elements/card.css' %}">
     <link rel="stylesheet" href="{% static 'css/shop.css' %}">
 
-
     <!-- Chat boot -->
     <link rel="stylesheet" type="text/css" href="{% static 'dist/jquery.convform.css' %}">
 </head>
@@ -69,7 +68,8 @@
                         </div>
                         <div class="col-md-5">
                             <ul class="list-inline top-data">
-                                <li><a href="#" target="_empty"><i class="fa top-social fa fa-facebook-official" aria-hidden="true"></i></a></li>
+                                <li><a href="#" target="_empty"><i class="fa top-social fa fa-facebook-official"
+                                            aria-hidden="true"></i></a></li>
                                 <li><a href="#" target="_empty"><i class="fa top-social fa fa-instagram"></i></a></li>
                                 <li><a href="#" target="_empty"><i class="fa top-social fa fa-whatsapp"></i></a></li>
                                 <li><a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Contato</a></li>
@@ -85,14 +85,15 @@
                 <a class="navbar-brand smooth-scroll" href="/">
                     <img src="{% static 'img/logo-s.png' %}" alt="logo">
                 </a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> 
-			  <span class="navbar-toggler-icon"></span>
-		</button>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link smooth-scroll" href="/">Home</a></li>
                         <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'lista-categoria' %}">Categorias</a></li>
-                        <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'lista-marca' %}">Marcas</a></li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'lista-marca' %}">Marcas</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Empresa</a>
                             <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
@@ -103,7 +104,9 @@
                                 <a class="dropdown-item" href="testimonials.html">Contate-Nos</a>
                             </div>
                         </li>
-                        <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'cart' %}"><i class="fa fa-shopping-cart"></i> Carrinho (<span class="cart-list">{{request.session.cartdata|length}}</span>)</a></li>
+                        <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'cart' %}"><i
+                                    class="fa fa-shopping-cart"></i> Carrinho (<span
+                                    class="cart-list">{{request.session.cartdata|length}}</span>)</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle smooth-scroll" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Minha Conta </a>
                             <div class="dropdown-menu dropdown-cust mega-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -149,9 +152,12 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <ul class="list-inline top-data">
-                                                    <li><a href="#" target="_empty"><i class="fa top-social fa fa-facebook-official"></i></a></li>
-                                                    <li><a href="#" target="_empty"><i class="fa top-social fa fa-instagram"></i></a></li>
-                                                    <li><a href="#" target="_empty"><i class="fa top-social fa fa-whatsapp"></i></a></li>
+                                                    <li><a href="#" target="_empty"><i
+                                                        class="fa top-social fa fa-facebook-official"></i></a></li>
+                                                    <li><a href="#" target="_empty"><i
+                                                        class="fa top-social fa fa-instagram"></i></a></li>
+                                                    <li><a href="#" target="_empty"><i
+                                                        class="fa top-social fa fa-whatsapp"></i></a></li>
                                                     <li><a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Contato</a></li>
                                                 </ul>
                                             </div>
@@ -172,8 +178,8 @@
                 <div class="modal-content">
                     <div class="modal-header" align="center">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span class="fa fa-times" aria-hidden="true"></span>
-                </button>
+                            <span class="fa fa-times" aria-hidden="true"></span>
+                        </button>
                     </div>
                     <div id="div-forms">
                         {% include 'chat-bot.html' %}
@@ -240,14 +246,15 @@
                                 <h2>Entrar em contato</h2>
                             </div>
                             <address class="address-details-f">
-         25, Rua das flores, contagem <br>
-         Minas Gerais, BR <br>
-         Telefone: 800 123 3456 <br>
-         Fax: 800 123 3456 <br>
-         Email: <a href="mailto:contato@pecascar.com.br" class="">contato@pecascar.com.br</a>
-     </address>
+                                25, Rua das flores, contagem <br>
+                                Minas Gerais, BR <br>
+                                Telefone: 800 123 3456 <br>
+                                Fax: 800 123 3456 <br>
+                                Email: <a href="mailto:contato@pecascar.com.br" class="">contato@pecascar.com.br</a>
+                            </address>
                             <ul class="list-inline social-icon-f top-data">
-                                <li><a href="#" target="_empty"><i class="fa top-social fa fa-facebook-official"></i></a></li>
+                                <li><a href="#" target="_empty"><i
+                                            class="fa top-social fa fa-facebook-official"></i></a></li>
                                 <li><a href="#" target="_empty"><i class="fa top-social fa fa-instagram"></i></a></li>
                                 <li><a href="#" target="_empty"><i class="fa top-social fa fa-whatsapp"></i></a></li>
                             </ul>
