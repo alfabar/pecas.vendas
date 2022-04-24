@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 import django_heroku
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     'jet.dashboard',
     'jet',
     'contato',
+    'pagamentos',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -161,3 +163,11 @@ EMAIL_HOST_USER = '479c15c149b717'
 EMAIL_HOST_PASSWORD = '21fc016e98cdb0'
 EMAIL_PORT = '2525'
 #EMAIL_USE_SSL = False
+
+
+
+#MERCADO PAGO
+env = environ.Env()
+env.read_env(str(BASE_DIR / ".env"))
+MERCADO_PAGO_PUBLIC_KEY = env("MERCADO_PAGO_PUBLIC_KEY")
+MERCADO_PAGO_ACESS_TOKEN = env("MERCADO_PAGO_ACESS_TOKEN")
