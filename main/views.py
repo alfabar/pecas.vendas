@@ -54,7 +54,7 @@ def lista_produto_marca(request,brand_id):
 			})
 @login_required
 # Detalhe do produto
-def product_detail(request,slug,id):
+def detalhe_produto(request,slug,id):
 	product=Product.objects.get(id=id)
 	related_products=Product.objects.filter(category=product.category).exclude(id=id)[:4]
 	colors=ProductAttribute.objects.filter(product=product).values('color__id','color__title','color__color_code').distinct()
