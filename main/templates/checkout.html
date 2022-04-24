@@ -1,59 +1,57 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <main class="container my-4" id="cartList">
-	<!-- Featured Products -->
-	<div class="row">
-		<div class="col-md-9">
-			<h3 class="my-4 border-bottom pb-1">Carrinho ({{totalitems}})</h3>
-			<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Produtos</th>
-				<th>Quantidade</th>
-				<th>Preço</th>
-				<th>Total</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for product_id,item in cart_data.items %}
-			<tr>
-				<td>
-					<img src="/media/{{item.image}}" width="50" />
-					<p><a href="/product/{{item.title|slugify}}/{{product_id}}">{{item.title}}</a></p>
-				</td>
-				<td>
-					{{item.qty}}
-				</td>
-				<td>$ {{item.price}}</td>
-				<td>$ {% widthratio item.price 1 item.qty %}</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="2"></td>
-				<th>Total</th>
-				<th>R$ {{total_amt}}</th>
-			</tr>
-			{% if totalitems %}
-			<tr>
-				<td colspan="4" align="right">
-					{{form.render}}
-				</td>
-			</tr>
-			{% endif %}
-		</tfoot>
-	</table>
-		</div>
-		<div class="col-md-3">
-			<h3 class="my-4 border-bottom pb-1">Endereço Selecionado</h3>
-			<div class="card">
-				<div class="card-body">
-					<p>{{address.address}}</p>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- Featured Products -->
+    <div class="row">
+        <div class="col-md-9">
+            <h3 class="my-4 border-bottom pb-1">Carrinho ({{totalitems}})</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Produtos</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product_id,item in cart_data.items %}
+                    <tr>
+                        <td>
+                            <img src="/media/{{item.image}}" width="50" />
+                            <p><a href="/produto/{{item.title|slugify}}/{{product_id}}">{{item.title}}</a></p>
+                        </td>
+                        <td>
+                            {{item.qty}}
+                        </td>
+                        <td>$ {{item.price}}</td>
+                        <td>$ {% widthratio item.price 1 item.qty %}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"></td>
+                        <th>Total</th>
+                        <th>R$ {{total_amt}}</th>
+                    </tr>
+                    {% if totalitems %}
+                    <tr>
+                        <td colspan="4" align="right">
+                            {{form.render}}
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <h3 class="my-4 border-bottom pb-1">Endereço Selecionado</h3>
+            <div class="card">
+                <div class="card-body">
+                    <p>{{address.address}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 {% endblock %}
