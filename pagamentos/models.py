@@ -1,3 +1,5 @@
 from django.db import models
+from localflavor.br.models import BRCPFField
+from model_utils.models import TimeStampedModel
 
-# Create your models here.
+
