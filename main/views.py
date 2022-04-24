@@ -36,7 +36,7 @@ def lista_produto(request):
 	total_data=Product.objects.count()
 	data=Product.objects.all().order_by('-id')[:3]
 	min_price=ProductAttribute.objects.aggregate(Min('price'))
-	max_price=ProductAttribute.objects.aggregate(Max('price'))
+	max_price=ProductAttribute.objects.aggregate(Max('price')) 
 	return render(request,'product_list.html',{'data':data,'total_data':total_data,'min_price':min_price,'max_price':max_price,})
 
 # Lista de produtos de acordo com a categoria

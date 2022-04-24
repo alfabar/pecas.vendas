@@ -22,7 +22,7 @@ urlpatterns=[
     path('accounts/signup',views.signup,name='signup'),
     path('checkout',views.checkout,name='checkout'),
     path('paypal/', include('paypal.standard.ipn.urls')),
-    path('payment-done/', views.payment_done, name='payment_done'),
+    path('payment-done/', views.payment_done, name='payment_done'), 
     path('payment-cancelled/', views.payment_canceled, name='payment_cancelled'),
     path('save-review/<int:pid>',views.save_review, name='save-review'),
     # User Section Start
