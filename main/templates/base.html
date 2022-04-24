@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="{% static 'css/ui-elements/card.css' %}">
     <link rel="stylesheet" href="{% static 'css/shop.css' %}">
 
+
     <!-- Chat boot -->
     <link rel="stylesheet" type="text/css" href="{% static 'dist/jquery.convform.css' %}">
 </head>
@@ -283,6 +284,12 @@
     <script type="text/javascript" src="{% static 'jquery-1.12.3.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'dist/autosize.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'dist/jquery.convform.js' %}"></script>
+    <!-- Add step #2 -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+        const mp = new MercadoPago('TEST-a900e669-330d-409b-bb09-0b3ca35060a0');
+        // Add step #3
+    </script>
 
     <script>
         function google(stateWrapper, ready) {
