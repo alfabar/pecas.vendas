@@ -41,8 +41,8 @@ def lista_produto(request):
 
 # Lista de produtos de acordo com a categoria
 def lista_produto_categoria(request,cat_id):
-	category=Categoria.objects.get(id=cat_id)
-	data=Product.objects.filter(category=category).order_by('-id')
+	categoria=Categoria.objects.get(id=cat_id)
+	data=Product.objects.filter(categoria=categoria).order_by('-id')
 	return render(request,'category_product_list.html',{'data':data,})
 
 # Lista de produtos de acordo com a marca
@@ -56,7 +56,7 @@ def lista_produto_marca(request,brand_id):
 # Detalhe do produto
 def detalhe_produto(request,slug,id):
 	product=Product.objects.get(id=id)
-	related_products=Product.objects.filter(category=product.category).exclude(id=id)[:4]
+	related_products=Product.objects.filter(categoria=product.categoria).exclude(id=id)[:4]
 	colors=ProductAttribute.objects.filter(product=product).values('color__id','color__title','color__color_code').distinct()
 	sizes=ProductAttribute.objects.filter(product=product).values('size__id','size__title','price','color__id').distinct()
 	reviewForm=ReviewAdd()
@@ -88,7 +88,7 @@ def search(request):
 # Dados do filtro
 def filter_data(request):
 	colors=request.GET.getlist('color[]')
-	categories=request.GET.getlist('category[]')
+	categories=request.GET.getlist('categoria[]')
 	brands=request.GET.getlist('brand[]')
 	sizes=request.GET.getlist('size[]')
 	minPrice=request.GET['minPrice']
@@ -99,7 +99,7 @@ def filter_data(request):
 	if len(colors)>0:
 		allProducts=allProducts.filter(productattribute__color__id__in=colors).distinct()
 	if len(categories)>0:
-		allProducts=allProducts.filter(category__id__in=categories).distinct()
+		allProducts=allProducts.filter(categoria__id__in=categories).distinct()
 	if len(brands)>0:
 		allProducts=allProducts.filter(brand__id__in=brands).distinct()
 	if len(sizes)>0:
