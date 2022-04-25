@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
-from .models import Banner,Promocao,Categoria,Brand,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist,UserAddressBook
+from .models import Banner,Promocao,Categoria,Brand,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProductReview,Wishlist,UserAddressBook
 from django.db.models import Max,Min,Count,Avg
 from django.db.models.functions import ExtractMonth
 from django.template.loader import render_to_string
@@ -16,9 +16,9 @@ from paypal.standard.forms import PayPalPaymentsForm
 # Home Page
 def home(request):
 	banners=Banner.objects.all().order_by('-id')
-	data=Product.objects.filter(is_featured=True).order_by('-id')
+	data=Produto.objects.filter(is_featured=True).order_by('-id')
 	promocaos=Promocao.objects.all().order_by('-id')
-	data1=Product.objects.filter(is_featured=True).order_by('-id')
+	data1=Produto.objects.filter(is_featured=True).order_by('-id')
 	return render(request,'index.html',{'data':data,'banners':banners,'data1':data1,'promocaos':promocaos})
 
 # Categoria
@@ -33,32 +33,32 @@ def lista_marca(request):
 
 # Lista de Produtos
 def lista_produto(request):
-	total_data=Product.objects.count()
-	data=Product.objects.all().order_by('-id')[:3]
-	min_price=ProductAttribute.objects.aggregate(Min('price'))
-	max_price=ProductAttribute.objects.aggregate(Max('price')) 
+	total_data=Produto.objects.count()
+	data=Produto.objects.all().order_by('-id')[:3]
+	min_price=ProdutoAtributo.objects.aggregate(Min('price'))
+	max_price=ProdutoAtributo.objects.aggregate(Max('price')) 
 	return render(request,'product_list.html',{'data':data,'total_data':total_data,'min_price':min_price,'max_price':max_price,})
 
 # Lista de produtos de acordo com a categoria
 def lista_produto_categoria(request,cat_id):
 	categoria=Categoria.objects.get(id=cat_id)
-	data=Product.objects.filter(categoria=categoria).order_by('-id')
+	data=Produto.objects.filter(categoria=categoria).order_by('-id')
 	return render(request,'category_product_list.html',{'data':data,})
 
 # Lista de produtos de acordo com a marca
 def lista_produto_marca(request,brand_id):
 	brand=Brand.objects.get(id=brand_id)
-	data=Product.objects.filter(brand=brand).order_by('-id')
+	data=Produto.objects.filter(brand=brand).order_by('-id')
 	return render(request,'category_product_list.html',{
 			'data':data,
 			})
 @login_required
 # Detalhe do produto
 def detalhe_produto(request,slug,id):
-	product=Product.objects.get(id=id)
-	related_products=Product.objects.filter(categoria=product.categoria).exclude(id=id)[:4]
-	colors=ProductAttribute.objects.filter(product=product).values('color__id','color__title','color__color_code').distinct()
-	sizes=ProductAttribute.objects.filter(product=product).values('size__id','size__title','price','color__id').distinct()
+	product=Produto.objects.get(id=id)
+	related_products=Produto.objects.filter(categoria=product.categoria).exclude(id=id)[:4]
+	colors=ProdutoAtributo.objects.filter(product=product).values('color__id','color__title','color__color_code').distinct()
+	sizes=ProdutoAtributo.objects.filter(product=product).values('size__id','size__title','price','color__id').distinct()
 	reviewForm=ReviewAdd()
 
 	# Verificar
@@ -82,7 +82,7 @@ def detalhe_produto(request,slug,id):
 # Procurar
 def search(request):
 	q=request.GET['q']
-	data=Product.objects.filter(title__icontains=q).order_by('-id')
+	data=Produto.objects.filter(title__icontains=q).order_by('-id')
 	return render(request,'search.html',{'data':data})
 
 # Dados do filtro
@@ -93,17 +93,17 @@ def filter_data(request):
 	sizes=request.GET.getlist('size[]')
 	minPrice=request.GET['minPrice']
 	maxPrice=request.GET['maxPrice']
-	allProducts=Product.objects.all().order_by('-id').distinct()
-	allProducts=allProducts.filter(productattribute__price__gte=minPrice)
-	allProducts=allProducts.filter(productattribute__price__lte=maxPrice)
+	allProducts=Produto.objects.all().order_by('-id').distinct()
+	allProducts=allProducts.filter(ProdutoAtributo__price__gte=minPrice)
+	allProducts=allProducts.filter(ProdutoAtributo__price__lte=maxPrice)
 	if len(colors)>0:
-		allProducts=allProducts.filter(productattribute__color__id__in=colors).distinct()
+		allProducts=allProducts.filter(ProdutoAtributo__color__id__in=colors).distinct()
 	if len(categories)>0:
 		allProducts=allProducts.filter(categoria__id__in=categories).distinct()
 	if len(brands)>0:
 		allProducts=allProducts.filter(brand__id__in=brands).distinct()
 	if len(sizes)>0:
-		allProducts=allProducts.filter(productattribute__size__id__in=sizes).distinct()
+		allProducts=allProducts.filter(ProdutoAtributo__size__id__in=sizes).distinct()
 	t=render_to_string('ajax/product-list.html',{'data':allProducts})
 	return JsonResponse({'data':t})
 
@@ -111,7 +111,7 @@ def filter_data(request):
 def load_more_data(request):
 	offset=int(request.GET['offset'])
 	limit=int(request.GET['limit'])
-	data=Product.objects.all().order_by('-id')[offset:offset+limit]
+	data=Produto.objects.all().order_by('-id')[offset:offset+limit]
 	t=render_to_string('ajax/product-list.html',{'data':data})
 	return JsonResponse({'data':t}
 )
@@ -205,7 +205,7 @@ def checkout(request):
 		for p_id,item in request.session['cartdata'].items():
 			totalAmt+=int(item['qty'])*float(item['price'])
 		# Ordem
-		order=CartOrder.objects.create(
+		order=CarrinhoPedido.objects.create(
 				user=request.user,
 				total_amt=totalAmt
 			)
@@ -213,7 +213,7 @@ def checkout(request):
 		for p_id,item in request.session['cartdata'].items():
 			total_amt+=int(item['qty'])*float(item['price'])
 			# Itens de pedidos
-			items=CartOrderItems.objects.create(
+			items=CarrinhoPedidoItems.objects.create(
 				order=order,
 				invoice_no='INV-'+str(order.id),
 				item=item['title'],
@@ -252,7 +252,7 @@ def payment_canceled(request):
 
 # Salvar revisão
 def save_review(request,pid):
-	product=Product.objects.get(pk=pid)
+	product=Produto.objects.get(pk=pid)
 	user=request.user
 	review=ProductReview.objects.create(
 		user=user,
@@ -275,7 +275,7 @@ def save_review(request,pid):
 # Painel do usuário
 import calendar
 def my_dashboard(request):
-	orders=CartOrder.objects.annotate(month=ExtractMonth('order_dt')).values('month').annotate(count=Count('id')).values('month','count')
+	orders=CarrinhoPedido.objects.annotate(month=ExtractMonth('order_dt')).values('month').annotate(count=Count('id')).values('month','count')
 	monthNumber=[]
 	totalOrders=[]
 	for d in orders:
@@ -285,19 +285,19 @@ def my_dashboard(request):
 
 # Minhas Ordens
 def my_orders(request):
-	orders=CartOrder.objects.filter(user=request.user).order_by('-id')
+	orders=CarrinhoPedido.objects.filter(user=request.user).order_by('-id')
 	return render(request, 'user/orders.html',{'orders':orders})
 
 # Detalhe do pedido
 def my_order_items(request,id):
-	order=CartOrder.objects.get(pk=id)
-	orderitems=CartOrderItems.objects.filter(order=order).order_by('-id')
+	order=CarrinhoPedido.objects.get(pk=id)
+	orderitems=CarrinhoPedidoItems.objects.filter(order=order).order_by('-id')
 	return render(request, 'user/order-items.html',{'orderitems':orderitems})
 
 # Lista de desejos
 def add_wishlist(request):
 	pid=request.GET['product']
-	product=Product.objects.get(pk=pid)
+	product=Produto.objects.get(pk=pid)
 	data={}
 	checkw=Wishlist.objects.filter(product=product,user=request.user).count()
 	if checkw > 0:

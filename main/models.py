@@ -80,7 +80,7 @@ class Size(models.Model):
 
 
 # Modelo do Produto
-class Product(models.Model):
+class Produto(models.Model):
     titulo=models.CharField(max_length=200)
     image=models.ImageField(upload_to="product_imgs/",null=True)
     slug=models.CharField(max_length=400)
@@ -101,8 +101,8 @@ class Product(models.Model):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
 
 # Atribuições do Produto
-class ProductAttribute(models.Model):
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+class ProdutoAtributo(models.Model):
+    product=models.ForeignKey(Produto,on_delete=models.CASCADE)
     color=models.ForeignKey(Color,on_delete=models.CASCADE)
     size=models.ForeignKey(Size,on_delete=models.CASCADE)
     price=models.PositiveIntegerField(default=0)
@@ -123,7 +123,7 @@ status_choice=(
         ('enviado','Enviado'),
         ('entregue','Entregue'),
     )
-class CartOrder(models.Model):
+class CarrinhoPedido(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)    
     total_amt=models.FloatField()
     paid_status=models.BooleanField(default=False)
@@ -136,8 +136,8 @@ class CartOrder(models.Model):
         
 
 # Pedido itens
-class CartOrderItems(models.Model):
-    order=models.ForeignKey(CartOrder,on_delete=models.CASCADE)
+class CarrinhoPedidoItems(models.Model):
+    order=models.ForeignKey(CarrinhoPedido,on_delete=models.CASCADE)
     invoice_no=models.CharField(max_length=150)
     item=models.CharField(max_length=150)
     image=models.CharField(max_length=200)
@@ -161,7 +161,7 @@ RATING=(
 )
 class ProductReview(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    product=models.ForeignKey(Produto,on_delete=models.CASCADE)
     review_text=models.TextField()
     review_rating=models.CharField(choices=RATING,max_length=150)
 
@@ -174,7 +174,7 @@ class ProductReview(models.Model):
 # Lista Desejo
 class Wishlist(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    product=models.ForeignKey(Produto,on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural='Lista de Desejo'

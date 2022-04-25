@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Banner,Promocao,Categoria,Brand,Color,Size,Product,ProductAttribute,CartOrder,CartOrderItems,ProductReview,Wishlist,UserAddressBook
+from .models import Banner,Promocao,Categoria,Brand,Color,Size,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProductReview,Wishlist,UserAddressBook
 
 # admin.site.register(Banner)
 admin.site.register(Brand)
@@ -22,25 +22,25 @@ class ColorAdmin(admin.ModelAdmin):
 	list_display=('title','color_bg')
 admin.site.register(Color,ColorAdmin)
 
-class ProductAdmin(admin.ModelAdmin):
+class ProdutoAdmin(admin.ModelAdmin):
     list_display=('id','titulo','image','categoria','brand','status','is_featured')
     list_editable=('status','is_featured')
-admin.site.register(Product,ProductAdmin)
+admin.site.register(Produto,ProdutoAdmin)
 
 # Product Attribute
-class ProductAttributeAdmin(admin.ModelAdmin):
+class ProdutoAtributoAdmin(admin.ModelAdmin):
     list_display=('id','image_tag','product','price','color','size')
-admin.site.register(ProductAttribute,ProductAttributeAdmin)
+admin.site.register(ProdutoAtributo,ProdutoAtributoAdmin)
 
 # Order
-class CartOrderAdmin(admin.ModelAdmin):
+class CarrinhoPedidoAdmin(admin.ModelAdmin):
 	list_editable=('paid_status','order_status')
 	list_display=('user','total_amt','paid_status','order_dt','order_status')
-admin.site.register(CartOrder,CartOrderAdmin)
+admin.site.register(CarrinhoPedido,CarrinhoPedidoAdmin)
 
-class CartOrderItemsAdmin(admin.ModelAdmin):
+class CarrinhoPedidoItemsAdmin(admin.ModelAdmin):
 	list_display=('invoice_no','item','image_tag','qty','price','total')
-admin.site.register(CartOrderItems,CartOrderItemsAdmin)
+admin.site.register(CarrinhoPedidoItems,CarrinhoPedidoItemsAdmin)
 
 
 class ProductReviewAdmin(admin.ModelAdmin):
