@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Banner,Promocao,Categoria,Brand,Color,Size,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
+from .models import Banner,Promocao,Categoria,Marca,Color,Size,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
 
 # admin.site.register(Banner)
-admin.site.register(Brand)
+admin.site.register(Marca)
 admin.site.register(Size)
 
 
