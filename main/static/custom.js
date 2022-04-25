@@ -171,12 +171,12 @@ $(document).ready(function() {
     // End
 
     // Activate selected address
-    $(document).on('click', '.activate-address', function() {
+    $(document).on('click', '.ativar-endereco', function() {
         var _aId = $(this).attr('data-address');
         var _vm = $(this);
         // Ajax
         $.ajax({
-            url: '/activate-address',
+            url: '/ativar-endereco',
             data: {
                 'id': _aId,
             },

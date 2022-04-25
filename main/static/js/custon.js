@@ -171,20 +171,20 @@ $(document).ready(function() {
     // End
 
     // Activate selected address
-    $(document).on('click', '.activate-address', function() {
+    $(document).on('click', '.ativar-endereco', function() {
         var _aId = $(this).attr('data-address');
         var _vm = $(this);
         // Ajax
         $.ajax({
-            url: '/activate-address',
+            url: '/ativar-endereco',
             data: {
                 'id': _aId,
             },
             dataType: 'json',
             success: function(res) {
                 if (res.bool == true) {
-                    $(".address").removeClass('shadow border-secondary');
-                    $(".address" + _aId).addClass('shadow border-secondary');
+                    $(".endereco").removeClass('shadow border-secondary');
+                    $(".endereco" + _aId).addClass('shadow border-secondary');
 
                     $(".check").hide();
                     $(".actbtn").show();

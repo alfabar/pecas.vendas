@@ -8,24 +8,26 @@
         </div>
         <div class="col-md-9">
             <div class="row">
-                {% for add in addbook %}
+                {% for add in addEndereco %}
                 <div class="col-md-4">
-                    <div class="card mb-3 {% if add.status %}border-secondary shadow{% endif %} address{{add.id}} address">
+                    <div class="card mb-3 {% if add.status %}border-secondary shadow{% endif %} endereco{{add.id}} endereco">
                         <div class="card-body">
-                            <p class="card-text">{{add.address}}</p>
-                            <p class="card-text">{{add.mobile}}</p>
+                            <h4>Endereço</h4>
+                            <p class="card-text">Cep: {{add.cep}}</p>
+                            <p class="card-text">Rua: {{add.endereco}}</p>
+                            <p class="card-text">Telefone: {{add.telefone}}</p>
                         </div>
                         {% if add.status %}
                         <div class="card-footer">
                             <i class="fa fa-check-circle text-success check{{add.id}} check"></i>
-                            <button style="display:none;" data-address="{{add.id}}" class="btn btn-sm btn-info activate-address btn{{add.id}} actbtn">Ativar</button>
-                            <a href="{% url 'update-address' add.id %}" class="float-right"><i class="fa fa-edit"></i></a>
+                            <button style="display:none;" data-address="{{add.id}}" class="btn btn-sm btn-info ativar-endereco btn{{add.id}} actbtn">Ativar</button>
+                            <a href="{% url 'atualizar-endereco' add.id %}" class="float-right"><i class="fa fa-edit"></i></a>
                         </div>
                         {% else %}
                         <div class="card-footer footer{{add.id}}">
                             <i style="display:none;" class="fa fa-check-circle text-success check{{add.id}} check"></i>
-                            <button data-address="{{add.id}}" class="btn btn-sm btn-info activate-address btn{{add.id}} actbtn">Ativar</button>
-                            <a href="{% url 'update-address' add.id %}" class="float-right"><i class="fa fa-edit"></i></a>
+                            <button data-address="{{add.id}}" class="btn btn-sm btn-info ativar-endereco btn{{add.id}} actbtn">Ativar</button>
+                            <a href="{% url 'atualizar-endereco' add.id %}" class="float-right"><i class="fa fa-edit"></i></a>
                         </div>
                         {% endif %}
                     </div>
