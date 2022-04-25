@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
-from .models import Banner,Promocao,Categoria,Brand,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProductReview,Wishlist,UserAddressBook
+from .models import Banner,Promocao,Categoria,Brand,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
 from django.db.models import Max,Min,Count,Avg
 from django.db.models.functions import ExtractMonth
 from django.template.loader import render_to_string
@@ -63,18 +63,18 @@ def detalhe_produto(request,slug,id):
 
 	# Verificar
 	canAdd=True
-	reviewCheck=ProductReview.objects.filter(user=request.user,product=product).count()
+	reviewCheck=ProdutoFeedback.objects.filter(user=request.user,product=product).count()
 	if request.user.is_authenticated:
 		if reviewCheck > 0:
 			canAdd=False
 	# End
 
 	# Buscar avaliações
-	reviews=ProductReview.objects.filter(product=product)
+	reviews=ProdutoFeedback.objects.filter(product=product)
 	# End
 
 	# Buscar classificação avg para avaliações
-	avg_reviews=ProductReview.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
+	avg_reviews=ProdutoFeedback.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
 	# End
 
 	return render(request, 'product_detail.html',{'data':product,'related':related_products,'colors':colors,'sizes':sizes,'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews,'avg_reviews':avg_reviews})
@@ -236,7 +236,7 @@ def checkout(request):
 		    'cancel_return': 'http://{}{}'.format(host,reverse('payment_cancelled')),
 		}
 		form = PayPalPaymentsForm(initial=paypal_dict)
-		address=UserAddressBook.objects.filter(user=request.user,status=True).first()
+		address=UserEnderecoLista.objects.filter(user=request.user,status=True).first()
 		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'address':address})
 
 @csrf_exempt
@@ -254,7 +254,7 @@ def payment_canceled(request):
 def save_review(request,pid):
 	product=Produto.objects.get(pk=pid)
 	user=request.user
-	review=ProductReview.objects.create(
+	review=ProdutoFeedback.objects.create(
 		user=user,
 		product=product,
 		review_text=request.POST['review_text'],
@@ -267,7 +267,7 @@ def save_review(request,pid):
 	}
 
 	# Buscar classificação avg para avaliações
-	avg_reviews=ProductReview.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
+	avg_reviews=ProdutoFeedback.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
 	# End
 
 	return JsonResponse({'bool':True,'data':data,'avg_reviews':avg_reviews})
@@ -295,17 +295,17 @@ def my_order_items(request,id):
 	return render(request, 'user/order-items.html',{'orderitems':orderitems})
 
 # Lista de desejos
-def add_wishlist(request):
+def add_lista_desejo(request):
 	pid=request.GET['product']
 	product=Produto.objects.get(pk=pid)
 	data={}
-	checkw=Wishlist.objects.filter(product=product,user=request.user).count()
+	checkw=ListaDesejo.objects.filter(product=product,user=request.user).count()
 	if checkw > 0:
 		data={
 			'bool':False
 		}
 	else:
-		wishlist=Wishlist.objects.create(
+		lista_desejo=ListaDesejo.objects.create(
 			product=product,
 			user=request.user
 		)
@@ -315,18 +315,18 @@ def add_wishlist(request):
 	return JsonResponse(data)
 
 # Minha lista de desejos
-def my_wishlist(request):
-	wlist=Wishlist.objects.filter(user=request.user).order_by('-id')
-	return render(request, 'user/wishlist.html',{'wlist':wlist})
+def minha_lista_desejo(request):
+	wlist=ListaDesejo.objects.filter(user=request.user).order_by('-id')
+	return render(request, 'user/lista_desejo.html',{'wlist':wlist})
 
 # Minhas Avaliações
 def my_reviews(request):
-	reviews=ProductReview.objects.filter(user=request.user).order_by('-id')
+	reviews=ProdutoFeedback.objects.filter(user=request.user).order_by('-id')
 	return render(request, 'user/reviews.html',{'reviews':reviews})
 
 # Meu livro de endereços
-def my_addressbook(request):
-	addbook=UserAddressBook.objects.filter(user=request.user).order_by('-id')
+def minha_lista_endereco(request):
+	addbook=UserEnderecoLista.objects.filter(user=request.user).order_by('-id')
 	return render(request, 'user/addressbook.html',{'addbook':addbook})
 
 # Salvar o catálogo de endereços
@@ -338,7 +338,7 @@ def save_address(request):
 			saveForm=form.save(commit=False)
 			saveForm.user=request.user
 			if 'status' in request.POST:
-				UserAddressBook.objects.update(status=False)
+				UserEnderecoLista.objects.update(status=False)
 			saveForm.save()
 			msg='Os dados foram salvos'
 	form=AddressBookForm
@@ -347,8 +347,8 @@ def save_address(request):
 # Ativar endereço
 def activate_address(request):
 	a_id=str(request.GET['id'])
-	UserAddressBook.objects.update(status=False)
-	UserAddressBook.objects.filter(id=a_id).update(status=True)
+	UserEnderecoLista.objects.update(status=False)
+	UserEnderecoLista.objects.filter(id=a_id).update(status=True)
 	return JsonResponse({'bool':True})
 
 # Editar perfil
@@ -364,7 +364,7 @@ def edit_profile(request):
 
 # Atualizar endereços
 def update_address(request,id):
-	address=UserAddressBook.objects.get(pk=id)
+	address=UserEnderecoLista.objects.get(pk=id)
 	msg=None
 	if request.method=='POST':
 		form=AddressBookForm(request.POST,instance=address)
@@ -372,7 +372,7 @@ def update_address(request,id):
 			saveForm=form.save(commit=False)
 			saveForm.user=request.user
 			if 'status' in request.POST:
-				UserAddressBook.objects.update(status=False)
+				UserEnderecoLista.objects.update(status=False)
 			saveForm.save()
 			msg='Os dados foram salvos'
 	form=AddressBookForm(instance=address)
