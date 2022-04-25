@@ -159,7 +159,7 @@ RATING=(
     (4,'4'),
     (5,'5'),
 )
-class ProductReview(models.Model):
+class ProdutoFeedback(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     product=models.ForeignKey(Produto,on_delete=models.CASCADE)
     review_text=models.TextField()
@@ -172,7 +172,7 @@ class ProductReview(models.Model):
         return self.review_rating
 
 # Lista Desejo
-class Wishlist(models.Model):
+class ListaDesejo(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     product=models.ForeignKey(Produto,on_delete=models.CASCADE)
 
@@ -180,7 +180,7 @@ class Wishlist(models.Model):
         verbose_name_plural='Lista de Desejo'
 
 # Livro Endereço
-class UserAddressBook(models.Model):
+class UserEnderecoLista(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     mobile=models.CharField(max_length=50,null=True)
     address=models.TextField()
