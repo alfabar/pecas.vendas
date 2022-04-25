@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse,HttpResponse
-from .models import Banner,Promocao,Categoria,Brand,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
+from .models import Banner,Promocao,Categoria,Marca,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
 from django.db.models import Max,Min,Count,Avg
 from django.db.models.functions import ExtractMonth
 from django.template.loader import render_to_string
@@ -28,7 +28,7 @@ def lista_categoria(request):
 
 # Marca
 def lista_marca(request):
-    data=Brand.objects.all().order_by('-id')
+    data=Marca.objects.all().order_by('-id')
     return render(request,'brand_list.html',{'data':data})
 
 # Lista de Produtos
@@ -47,7 +47,7 @@ def lista_produto_categoria(request,cat_id):
 
 # Lista de produtos de acordo com a marca
 def lista_produto_marca(request,brand_id):
-	brand=Brand.objects.get(id=brand_id)
+	brand=Marca.objects.get(id=brand_id)
 	data=Produto.objects.filter(brand=brand).order_by('-id')
 	return render(request,'category_product_list.html',{
 			'data':data,
@@ -86,7 +86,7 @@ def search(request):
 	return render(request,'search.html',{'data':data})
 
 # Dados do filtro
-def filter_data(request):
+def filtro_dados(request):
 	colors=request.GET.getlist('color[]')
 	categories=request.GET.getlist('categoria[]')
 	brands=request.GET.getlist('brand[]')
@@ -108,7 +108,7 @@ def filter_data(request):
 	return JsonResponse({'data':t})
 
 # Carregar mais
-def load_more_data(request):
+def carregar_mais_dados(request):
 	offset=int(request.GET['offset'])
 	limit=int(request.GET['limit'])
 	data=Produto.objects.all().order_by('-id')[offset:offset+limit]
@@ -117,7 +117,7 @@ def load_more_data(request):
 )
 
 # Adicione ao carrinho
-def add_to_cart(request):
+def carrinho_add(request):
 	# del request.session['cartdata']
 	cart_p={}
 	cart_p[str(request.GET['id'])]={
