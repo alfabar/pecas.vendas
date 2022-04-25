@@ -44,7 +44,7 @@ class Categoria(models.Model):
         return self.title
 
 # Marca
-class Brand(models.Model):
+class Marca(models.Model):
     title=models.CharField(max_length=100)
     image=models.ImageField(upload_to="brand_imgs/")
 
@@ -87,7 +87,7 @@ class Produto(models.Model):
     detalhes=models.TextField()
     especificacoes=models.TextField()
     categoria=models.ForeignKey(Categoria,on_delete=models.CASCADE)
-    brand=models.ForeignKey(Brand,on_delete=models.CASCADE)
+    brand=models.ForeignKey(Marca,on_delete=models.CASCADE)
     status=models.BooleanField(default=True)
     is_featured=models.BooleanField(default=False)
 
