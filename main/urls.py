@@ -36,12 +36,12 @@ urlpatterns=[
     path('minha_lista_desejo',views.minha_lista_desejo, name='minha_lista_desejo'),
     # My Reviews
     path('my-reviews',views.my_reviews, name='my-reviews'),
-    # My AddressBook
+    # My enderecoBook
     path('minha_lista_endereco',views.minha_lista_endereco, name='minha_lista_endereco'),
-    path('add-address',views.save_address, name='add-address'),
-    path('activate-address',views.activate_address, name='activate-address'),
-    path('update-address/<int:id>',views.update_address, name='update-address'),
-    path('edit-profile',views.edit_profile, name='edit-profile'),
+    path('adicionar-endereco',views.salvar_endereco, name='adicionar-endereco'),
+    path('ativar-endereco',views.ativar_endereco, name='ativar-endereco'),
+    path('atualizar-endereco/<int:id>',views.atualizar_endereco, name='atualizar-endereco'),
+    path('editar-perfil',views.edit_profile, name='editar-perfil'),
 ]
 
 if settings.DEBUG:
