@@ -4,7 +4,7 @@
         <ul class="list-unstyled">
             <li><a href="{% url 'my_dashboard' %}" class="list-group-item {% if request.path == '/my-dashboard' %}active {% endif %}"><i class="icon-home"></i> Painel</a></li>
             <li>
-                <a href="{% url 'edit-profile' %}" class="list-group-item {% if request.path == '/edit-profile' %}active {% endif %}"> <i class="icon-interface-windows"></i> Perfil </a>
+                <a href="{% url 'editar-perfil' %}" class="list-group-item {% if request.path == '/edit-profile' %}active {% endif %}"> <i class="icon-interface-windows"></i> Perfil </a>
             </li>
             <li>
                 <a href="{% url 'my_orders' %}" class="list-group-item {% if request.path == '/my-orders' %}active {% endif %}"><i class="icon-bill"></i></i> Pedidos </a>
