@@ -15,10 +15,10 @@ class ReviewAdd(forms.ModelForm):
 		fields=('review_text','review_rating')
 
 # AddressBook Add Form
-class AddressBookForm(forms.ModelForm):
+class FormListaEndereco(forms.ModelForm):
 	class Meta:
 		model=UserEnderecoLista
-		fields=('address','mobile','status')
+		fields=('endereco','telefone','status')
 
 # ProfileEdit
 class ProfileForm(UserChangeForm):
