@@ -4,7 +4,7 @@ from .models import Banner,Promocao,Categoria,Marca,Produto,ProdutoAtributo,Carr
 from django.db.models import Max,Min,Count,Avg
 from django.db.models.functions import ExtractMonth
 from django.template.loader import render_to_string
-from .forms import SignupForm,ReviewAdd,AddressBookForm,ProfileForm
+from .forms import SignupForm,ReviewAdd,FormListaEndereco,ProfileForm
 from django.contrib.auth import login,authenticate
 from django.contrib.auth.decorators import login_required
 #paypal
@@ -236,8 +236,8 @@ def checkout(request):
 		    'cancel_return': 'http://{}{}'.format(host,reverse('payment_cancelled')),
 		}
 		form = PayPalPaymentsForm(initial=paypal_dict)
-		address=UserEnderecoLista.objects.filter(user=request.user,status=True).first()
-		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'address':address})
+		endereco=UserEnderecoLista.objects.filter(user=request.user,status=True).first()
+		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'endereco':endereco})
 
 @csrf_exempt
 def payment_done(request):
@@ -327,13 +327,13 @@ def my_reviews(request):
 # Meu livro de endereços
 def minha_lista_endereco(request):
 	addbook=UserEnderecoLista.objects.filter(user=request.user).order_by('-id')
-	return render(request, 'user/addressbook.html',{'addbook':addbook})
+	return render(request, 'user/enderecobook.html',{'addbook':addbook})
 
 # Salvar o catálogo de endereços
-def save_address(request):
+def salvar_endereco(request):
 	msg=None
 	if request.method=='POST':
-		form=AddressBookForm(request.POST)
+		form=FormListaEndereco(request.POST)
 		if form.is_valid():
 			saveForm=form.save(commit=False)
 			saveForm.user=request.user
@@ -341,11 +341,11 @@ def save_address(request):
 				UserEnderecoLista.objects.update(status=False)
 			saveForm.save()
 			msg='Os dados foram salvos'
-	form=AddressBookForm
-	return render(request, 'user/add-address.html',{'form':form,'msg':msg})
+	form=FormListaEndereco
+	return render(request, 'user/add-endereco.html',{'form':form,'msg':msg})
 
 # Ativar endereço
-def activate_address(request):
+def ativar_endereco(request):
 	a_id=str(request.GET['id'])
 	UserEnderecoLista.objects.update(status=False)
 	UserEnderecoLista.objects.filter(id=a_id).update(status=True)
@@ -363,11 +363,11 @@ def edit_profile(request):
 	return render(request, 'user/edit-profile.html',{'form':form,'msg':msg})
 
 # Atualizar endereços
-def update_address(request,id):
-	address=UserEnderecoLista.objects.get(pk=id)
+def atualizar_endereco(request,id):
+	endereco=UserEnderecoLista.objects.get(pk=id)
 	msg=None
 	if request.method=='POST':
-		form=AddressBookForm(request.POST,instance=address)
+		form=FormListaEndereco(request.POST,instance=endereco)
 		if form.is_valid():
 			saveForm=form.save(commit=False)
 			saveForm.user=request.user
@@ -375,5 +375,5 @@ def update_address(request,id):
 				UserEnderecoLista.objects.update(status=False)
 			saveForm.save()
 			msg='Os dados foram salvos'
-	form=AddressBookForm(instance=address)
-	return render(request, 'user/update-address.html',{'form':form,'msg':msg})
+	form=FormListaEndereco(instance=endereco)
+	return render(request, 'user/update-endereco.html',{'form':form,'msg':msg})
