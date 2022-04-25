@@ -81,11 +81,12 @@ class Size(models.Model):
 
 # Modelo do Produto
 class Product(models.Model):
-    title=models.CharField(max_length=200)
+    titulo=models.CharField(max_length=200)
+    image=models.ImageField(upload_to="product_imgs/",null=True)
     slug=models.CharField(max_length=400)
-    detail=models.TextField()
-    specs=models.TextField()
-    category=models.ForeignKey(Categoria,on_delete=models.CASCADE)
+    detalhes=models.TextField()
+    especificacoes=models.TextField()
+    categoria=models.ForeignKey(Categoria,on_delete=models.CASCADE)
     brand=models.ForeignKey(Brand,on_delete=models.CASCADE)
     status=models.BooleanField(default=True)
     is_featured=models.BooleanField(default=False)
@@ -94,7 +95,10 @@ class Product(models.Model):
         verbose_name_plural='6. Produtos'
 
     def __str__(self):
-        return self.title
+        return self.titulo
+
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
 
 # Atribuições do Produto
 class ProductAttribute(models.Model):
@@ -124,7 +128,7 @@ class CartOrder(models.Model):
     total_amt=models.FloatField()
     paid_status=models.BooleanField(default=False)
     order_dt=models.DateTimeField(auto_now_add=True)
-    order_status=models.CharField(choices=status_choice,default='process',max_length=150)
+    order_status=models.CharField(choices=status_choice,default='processo',max_length=150)
     
 
     class Meta:
