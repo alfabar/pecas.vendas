@@ -52,5 +52,5 @@ admin.site.register(ListaDesejo)
 
 
 class UserEnderecoListaAdmin(admin.ModelAdmin):
-	list_display=('user','address','status')
+	list_display=('user','endereco','status')
 admin.site.register(UserEnderecoLista,UserEnderecoListaAdmin)
