@@ -31,13 +31,13 @@ urlpatterns=[
     path('my-orders-items/<int:id>',views.my_order_items, name='my_order_items'),
     # End
 
-    # Wishlist
-    path('add-wishlist',views.add_wishlist, name='add_wishlist'),
-    path('my-wishlist',views.my_wishlist, name='my_wishlist'),
+    # lista_desejo
+    path('add-lista-desejo',views.minha_lista_desejo, name='minha_lista_desejo'),
+    path('minha-lista-desejo',views.minha_lista_desejo, name='minha_lista_desejo'),
     # My Reviews
     path('my-reviews',views.my_reviews, name='my-reviews'),
     # My AddressBook
-    path('my-addressbook',views.my_addressbook, name='my-addressbook'),
+    path('my-addressbook',views.minha_lista_endereco, name='minha_lista_endereco'),
     path('add-address',views.save_address, name='add-address'),
     path('activate-address',views.activate_address, name='activate-address'),
     path('update-address/<int:id>',views.update_address, name='update-address'),
