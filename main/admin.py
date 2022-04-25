@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Banner,Promocao,Categoria,Brand,Color,Size,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProductReview,Wishlist,UserAddressBook
+from .models import Banner,Promocao,Categoria,Brand,Color,Size,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
 
 # admin.site.register(Banner)
 admin.site.register(Brand)
@@ -43,14 +43,14 @@ class CarrinhoPedidoItemsAdmin(admin.ModelAdmin):
 admin.site.register(CarrinhoPedidoItems,CarrinhoPedidoItemsAdmin)
 
 
-class ProductReviewAdmin(admin.ModelAdmin):
+class ProdutoFeedbackAdmin(admin.ModelAdmin):
 	list_display=('user','product','review_text','get_review_rating')
-admin.site.register(ProductReview,ProductReviewAdmin)
+admin.site.register(ProdutoFeedback,ProdutoFeedbackAdmin)
 
 
-admin.site.register(Wishlist)
+admin.site.register(ListaDesejo)
 
 
-class UserAddressBookAdmin(admin.ModelAdmin):
+class UserEnderecoListaAdmin(admin.ModelAdmin):
 	list_display=('user','address','status')
-admin.site.register(UserAddressBook,UserAddressBookAdmin)
+admin.site.register(UserEnderecoLista,UserEnderecoListaAdmin)
