@@ -326,8 +326,8 @@ def my_reviews(request):
 
 # Meu livro de endereços
 def minha_lista_endereco(request):
-	addbook=UserEnderecoLista.objects.filter(user=request.user).order_by('-id')
-	return render(request, 'user/enderecobook.html',{'addbook':addbook})
+	addEndereco=UserEnderecoLista.objects.filter(user=request.user).order_by('-id')
+	return render(request, 'user/enderecolivro.html',{'addEndereco':addEndereco})
 
 # Salvar o catálogo de endereços
 def salvar_endereco(request):
@@ -376,4 +376,4 @@ def atualizar_endereco(request,id):
 			saveForm.save()
 			msg='Os dados foram salvos'
 	form=FormListaEndereco(instance=endereco)
-	return render(request, 'user/update-endereco.html',{'form':form,'msg':msg})
+	return render(request, 'user/atualizar-endereco.html',{'form':form,'msg':msg})
