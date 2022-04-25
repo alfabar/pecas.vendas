@@ -70,7 +70,7 @@ $(document).ready(function() {
     $(".product-price").text(_price);
 
     // Add to cart
-    $(document).on('click', ".add-to-cart", function() {
+    $(document).on('click', ".adicionar-carrinho", function() {
         var _vm = $(this);
         var _index = _vm.attr('data-index');
         var _qty = $(".product-qty-" + _index).val();
@@ -80,7 +80,7 @@ $(document).ready(function() {
         var _productPrice = $(".product-price-" + _index).text();
         // Ajax
         $.ajax({
-            url: '/add-to-cart',
+            url: '/adicionar-carrinho',
             data: {
                 'id': _productId,
                 'image': _productImage,
