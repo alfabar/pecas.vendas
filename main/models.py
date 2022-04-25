@@ -182,8 +182,9 @@ class ListaDesejo(models.Model):
 # Livro Endereço
 class UserEnderecoLista(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    telefone=models.CharField(max_length=50,null=True)
-    endereco=models.TextField()
+    telefone=models.CharField(max_length=50,null=False)
+    cep=models.CharField(max_length=9, null=False)
+    endereco=models.CharField(max_length=90, null=False)
     status=models.BooleanField(default=False)
 
     class Meta:
