@@ -89,10 +89,10 @@ class Size(models.Model):
 # Modelo do Produto
 class Produto(models.Model):
     titulo=models.CharField(max_length=200)
-    image=models.ImageField(upload_to="product_imgs/",null=True)
-    image1=models.ImageField(upload_to="product_imgs/",null=True)
-    image2=models.ImageField(upload_to="product_imgs/",null=True)
-    image3=models.ImageField(upload_to="product_imgs/",null=True)
+    imagem=models.ImageField(upload_to="product_imgs/",null=True)
+    imagem1=models.ImageField(upload_to="product_imgs/",null=True)
+    imagem2=models.ImageField(upload_to="product_imgs/",null=True)
+    imagem3=models.ImageField(upload_to="product_imgs/",null=True)
     slug=models.CharField(max_length=400)
     detalhes=models.TextField()
     especificacoes=models.TextField()
@@ -107,9 +107,17 @@ class Produto(models.Model):
     def __str__(self):
         return self.titulo
 
-    def image_tag(self):
-        return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+    def imagem_tag(self):
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.imagem.url))
 
+    def imagem1_tag(self):
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.imagem1.url))
+
+    def imagem2_tag(self):
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.imagem2.url))    
+
+    def imagem3_tag(self):
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.imagem3.url))
 # Atribuições do Produto
 class ProdutoAtributo(models.Model):
     product=models.ForeignKey(Produto,on_delete=models.CASCADE)
