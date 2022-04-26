@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils.html import mark_safe
 from django.contrib.auth.models import User
+from pycep_correios import get_address_from_cep, WebService
+import re
+import requests
 # Banner
 class Banner(models.Model): 
     img=models.ImageField(upload_to="banner_imgs/")
@@ -181,14 +184,17 @@ class ListaDesejo(models.Model):
 
 # Livro Endereço
 class UserEnderecoLista(models.Model):
+    
+
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     telefone=models.CharField(max_length=50,null=False)
+    whathsapp=models.CharField(max_length=50,null=False)
     cep=models.CharField(max_length=9, null=False)
     endereco=models.CharField(max_length=90, null=False)
+    bairro=models.CharField(max_length=90, null=False)
+    cidade=models.CharField(max_length=90, null=False)
+    estado=models.CharField(max_length=90, null=False)
     status=models.BooleanField(default=False)
-
     class Meta:
         verbose_name_plural='Livro de Endereços'
 
-
-    
