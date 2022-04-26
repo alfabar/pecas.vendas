@@ -49,14 +49,17 @@ class Categoria(models.Model):
 
 # Marca
 class Marca(models.Model):
-    title=models.CharField(max_length=100)
-    image=models.ImageField(upload_to="brand_imgs/")
+    titulo=models.CharField(max_length=100)
+    nome_marca=models.ImageField(upload_to="brand_imgs/")
 
     class Meta:
         verbose_name_plural='3. Marcas'
 
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.nome_marca.url))
+
     def __str__(self):
-        return self.title
+        return self.titulo
 
 # Cores
 class Color(models.Model):
@@ -91,7 +94,7 @@ class Produto(models.Model):
     detalhes=models.TextField()
     especificacoes=models.TextField()
     categoria=models.ForeignKey(Categoria,on_delete=models.CASCADE)
-    brand=models.ForeignKey(Marca,on_delete=models.CASCADE)
+    marca=models.ForeignKey(Marca,on_delete=models.CASCADE)
     status=models.BooleanField(default=True)
     is_featured=models.BooleanField(default=False)
 
