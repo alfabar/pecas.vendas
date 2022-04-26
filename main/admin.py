@@ -18,7 +18,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 	list_display=('title','image_tag')
 admin.site.register(Categoria,CategoriaAdmin)
 class MarcaAdmin(admin.ModelAdmin):
-	list_display=('titulo','nome_marca')
+	list_display=('titulo','imagem_marca')
 admin.site.register(Marca,MarcaAdmin)
 class ColorAdmin(admin.ModelAdmin):
 	list_display=('title','color_bg')
