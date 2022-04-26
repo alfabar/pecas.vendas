@@ -251,7 +251,7 @@ def pagamento_cancelado(request):
 
 
 # Salvar revisão
-def save_review(request,pid):
+def salvar_avaliacao(request,pid):
 	product=Produto.objects.get(pk=pid)
 	user=request.user
 	review=ProdutoFeedback.objects.create(
