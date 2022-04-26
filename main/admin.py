@@ -25,8 +25,8 @@ class ColorAdmin(admin.ModelAdmin):
 admin.site.register(Color,ColorAdmin)
 
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display=('id','titulo','image','categoria','marca','status','is_featured')
-    list_editable=('status','is_featured')
+    list_display=('id','titulo','image','image1','image2','image3','categoria','marca','status','e_apresentado')
+    list_editable=('status','e_apresentado')
 admin.site.register(Produto,ProdutoAdmin)
 
 # Product Attribute
