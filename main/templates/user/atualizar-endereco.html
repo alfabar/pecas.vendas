@@ -9,7 +9,10 @@
         <div class="col-md-9">
             {% if msg %}
             <p class="text-success">{{msg}}</p>
-            {% endif %}
+            {% endif %} {% if criar_sinal %}
+            <p class="text-success">{{criar_sinal}}</p>
+
+            {% endif%}
             <table class="table table-bordered">
                 <form method="post">
                     {% csrf_token %} {{form.as_table}}
