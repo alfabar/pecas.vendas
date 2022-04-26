@@ -274,7 +274,7 @@ def salvar_avaliacao(request,pid):
 
 # Painel do usuário
 import calendar
-def my_dashboard(request):
+def meu_painel(request):
 	orders=CarrinhoPedido.objects.annotate(month=ExtractMonth('order_dt')).values('month').annotate(count=Count('id')).values('month','count')
 	monthNumber=[]
 	totalOrders=[]
