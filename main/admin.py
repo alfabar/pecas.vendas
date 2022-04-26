@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Banner,Promocao,Categoria,Marca,Color,Size,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
 
 # admin.site.register(Banner)
-admin.site.register(Marca)
+
 admin.site.register(Size)
 
 
@@ -17,13 +17,15 @@ admin.site.register(Promocao,PromocaoAdmin)
 class CategoriaAdmin(admin.ModelAdmin):
 	list_display=('title','image_tag')
 admin.site.register(Categoria,CategoriaAdmin)
-
+class MarcaAdmin(admin.ModelAdmin):
+	list_display=('titulo','nome_marca')
+admin.site.register(Marca,MarcaAdmin)
 class ColorAdmin(admin.ModelAdmin):
 	list_display=('title','color_bg')
 admin.site.register(Color,ColorAdmin)
 
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display=('id','titulo','image','categoria','brand','status','is_featured')
+    list_display=('id','titulo','image','categoria','marca','status','is_featured')
     list_editable=('status','is_featured')
 admin.site.register(Produto,ProdutoAdmin)
 
