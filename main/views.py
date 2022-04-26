@@ -16,9 +16,9 @@ from paypal.standard.forms import PayPalPaymentsForm
 # Home Page
 def home(request):
 	banners=Banner.objects.all().order_by('-id')
-	data=Produto.objects.filter(is_featured=True).order_by('-id')
+	data=Produto.objects.filter(e_apresentado=True).order_by('-id')
 	promocaos=Promocao.objects.all().order_by('-id')
-	data1=Produto.objects.filter(is_featured=True).order_by('-id')
+	data1=Produto.objects.filter(e_apresentado=True).order_by('-id')
 	return render(request,'index.html',{'data':data,'banners':banners,'data1':data1,'promocaos':promocaos})
 
 # Categoria
@@ -77,13 +77,13 @@ def detalhe_produto(request,slug,id):
 	avg_reviews=ProdutoFeedback.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
 	# End
 
-	return render(request, 'product_detail.html',{'data':product,'related':related_products,'colors':colors,'sizes':sizes,'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews,'avg_reviews':avg_reviews})
+	return render(request, 'detalhes-produtos.html',{'data':product,'related':related_products,'colors':colors,'sizes':sizes,'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews,'avg_reviews':avg_reviews})
 
 # Procurar
 def search(request):
 	q=request.GET['q']
 	data=Produto.objects.filter(title__icontains=q).order_by('-id')
-	return render(request,'search.html',{'data':data})
+	return render(request,'procurar.html',{'data':data})
 
 # Dados do filtro
 def filtro_dados(request):
@@ -104,7 +104,7 @@ def filtro_dados(request):
 		allProducts=allProducts.filter(marca__id__in=marcas).distinct()
 	if len(sizes)>0:
 		allProducts=allProducts.filter(ProdutoAtributo__size__id__in=sizes).distinct()
-	t=render_to_string('ajax/product-list.html',{'data':allProducts})
+	t=render_to_string('ajax/lista-produtos.html',{'data':allProducts})
 	return JsonResponse({'data':t})
 
 # Carregar mais
@@ -112,7 +112,7 @@ def carregar_mais_dados(request):
 	offset=int(request.GET['offset'])
 	limit=int(request.GET['limit'])
 	data=Produto.objects.all().order_by('-id')[offset:offset+limit]
-	t=render_to_string('ajax/product-list.html',{'data':data})
+	t=render_to_string('ajax/lista-produtos.html',{'data':data})
 	return JsonResponse({'data':t}
 )
 
@@ -147,9 +147,9 @@ def lista_carrinho(request):
 	if 'cartdata' in request.session:
 		for p_id,item in request.session['cartdata'].items():
 			total_amt+=int(item['qty'])*float(item['price'])
-		return render(request, 'cart.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
+		return render(request, 'carrinho.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
 	else:
-		return render(request, 'cart.html',{'cart_data':'','totalitems':0,'total_amt':total_amt})
+		return render(request, 'carrinho.html',{'cart_data':'','totalitems':0,'total_amt':total_amt})
 
 
 # Excluir item do carrinho
@@ -163,7 +163,7 @@ def deletar_carrinho_item(request):
 	total_amt=0
 	for p_id,item in request.session['cartdata'].items():
 		total_amt+=int(item['qty'])*float(item['price'])
-	t=render_to_string('ajax/cart-list.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
+	t=render_to_string('ajax/lista-carrinho.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
 	return JsonResponse({'data':t,'totalitems':len(request.session['cartdata'])})
 
 # Excluir item do carrinho
@@ -178,7 +178,7 @@ def atualizar_item_carrinho(request):
 	total_amt=0
 	for p_id,item in request.session['cartdata'].items():
 		total_amt+=int(item['qty'])*float(item['price'])
-	t=render_to_string('ajax/cart-list.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
+	t=render_to_string('ajax/lista-carrinho.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt})
 	return JsonResponse({'data':t,'totalitems':len(request.session['cartdata'])})
 
 # Formulário de inscrição
@@ -193,7 +193,7 @@ def inscrever_se(request):
 			login(request, user)
 			return redirect('home')
 	form=SignupForm
-	return render(request, 'registration/signup.html',{'form':form})
+	return render(request, 'registration/registrar.html',{'form':form})
 
 
 # Caixa
