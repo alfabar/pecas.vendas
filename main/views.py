@@ -242,12 +242,12 @@ def checkout(request):
 @csrf_exempt
 def pagaento_efetuado(request):
 	returnData=request.POST
-	return render(request, 'payment-success.html',{'data':returnData})
+	return render(request, 'pagamento-sucesso.html',{'data':returnData})
 
 
 @csrf_exempt
 def pagamento_cancelado(request):
-	return render(request, 'payment-fail.html')
+	return render(request, 'pagamento-falhou.html')
 
 
 # Salvar revisão
@@ -281,18 +281,18 @@ def meu_painel(request):
 	for d in orders:
 		monthNumber.append(calendar.month_name[d['month']])
 		totalOrders.append(d['count'])
-	return render(request, 'user/dashboard.html',{'monthNumber':monthNumber,'totalOrders':totalOrders})
+	return render(request, 'user/painel.html',{'monthNumber':monthNumber,'totalOrders':totalOrders})
 
 # Minhas Ordens
 def meus_pedidos(request):
 	orders=CarrinhoPedido.objects.filter(user=request.user).order_by('-id')
-	return render(request, 'user/orders.html',{'orders':orders})
+	return render(request, 'user/pedidos.html',{'orders':orders})
 
 # Detalhe do pedido
 def meus_pedidos_items(request,id):
 	order=CarrinhoPedido.objects.get(pk=id)
 	orderitems=CarrinhoPedidoItems.objects.filter(order=order).order_by('-id')
-	return render(request, 'user/order-items.html',{'orderitems':orderitems})
+	return render(request, 'user/pedido-items.html',{'orderitems':orderitems})
 
 # Lista de desejos
 def add_lista_desejo(request):
@@ -322,7 +322,7 @@ def minha_lista_desejo(request):
 # Minhas Avaliações
 def meus_comentarios(request):
 	reviews=ProdutoFeedback.objects.filter(user=request.user).order_by('-id')
-	return render(request, 'user/reviews.html',{'reviews':reviews})
+	return render(request, 'user/avaliacao.html',{'reviews':reviews})
 
 # Meu livro de endereços
 def minha_lista_endereco(request):
@@ -353,7 +353,7 @@ def ativar_endereco(request):
 	return JsonResponse({'bool':True})
 
 # Editar perfil
-def edit_profile(request):
+def editar_perfil(request):
 	msg=None
 	if request.method=='POST':
 		form=ProfileForm(request.POST,instance=request.user)
@@ -361,7 +361,7 @@ def edit_profile(request):
 			form.save()
 			msg='Os dados foram salvos'
 	form=ProfileForm(instance=request.user)
-	return render(request, 'user/edit-profile.html',{'form':form,'msg':msg})
+	return render(request, 'user/editar-perfil.html',{'form':form,'msg':msg})
 
 # Atualizar endereços
 def atualizar_endereco(request,id):
