@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.html import mark_safe
 from django.contrib.auth.models import User
-from pycep_correios import get_address_from_cep, WebService
+from pycep_correios import get_address_from_cep
+from pycep_correios.exceptions import CEPNotFound, ConnectionError, InvalidCEP
 import re
 import requests
 # Banner
@@ -183,8 +184,6 @@ class ListaDesejo(models.Model):
 
 # Livro Endereço
 class UserEnderecoLista(models.Model):
-    
-
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     telefone=models.CharField(max_length=50,null=False)
     whathsapp=models.CharField(max_length=50,null=False)
@@ -194,6 +193,24 @@ class UserEnderecoLista(models.Model):
     cidade=models.CharField(max_length=90, null=False)
     estado=models.CharField(max_length=90, null=False)
     status=models.BooleanField(default=False)
-    class Meta:
-        verbose_name_plural='Livro de Endereços'
+
+
+    @classmethod
+    def buscarCepCliente(self):
+        cep = self.tx_Cep.text()
+        try:
+            busca = get_address_from_cep(cep)
+            self.tx_Endereco.setText(busca['logradouro'])
+            self.tx_Bairro.setText(busca['bairro'])
+            self.tx_Cidade.setText(busca['cidade'])
+            self.tx_Estado.setText(busca['uf'])
+            self.tx_Numero.setFocus()
+        except ConnectionError:
+            self.tx_Endereco.setText('Sem conexão com serviço dos Correios')
+        except InvalidCEP:
+            self.tx_Endereco.setText('CEP inválido')
+        except CEPNotFound:
+            self.tx_Endereco.setText('CEP não encontrado')
+        except:
+            self.tx_Endereco.setText('Erro desconhecido')
 
