@@ -50,13 +50,13 @@ class Categoria(models.Model):
 # Marca
 class Marca(models.Model):
     titulo=models.CharField(max_length=100)
-    nome_marca=models.ImageField(upload_to="brand_imgs/")
+    imagem_marca=models.ImageField(upload_to="brand_imgs/")
 
     class Meta:
         verbose_name_plural='3. Marcas'
 
     def image_tag(self):
-        return mark_safe('<img src="%s" width="50" height="50" />' % (self.nome_marca.url))
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.imagem_marca.url))
 
     def __str__(self):
         return self.titulo
