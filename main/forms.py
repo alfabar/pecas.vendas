@@ -12,7 +12,7 @@ class SignupForm(UserCreationForm):
 class ReviewAdd(forms.ModelForm):
 	class Meta:
 		model=ProdutoFeedback
-		fields=('review_text','review_rating')
+		fields=('review_text','review_rating') 
 
 # AddressBook Add Form
 class FormListaEndereco(forms.ModelForm):
