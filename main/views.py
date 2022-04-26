@@ -24,12 +24,12 @@ def home(request):
 # Categoria
 def lista_categoria(request):
     data=Categoria.objects.all().order_by('-id')
-    return render(request,'category_list.html',{'data':data})
+    return render(request,'lista_categoria.html',{'data':data})
 
 # Marca
 def lista_marca(request):
     data=Marca.objects.all().order_by('-id')
-    return render(request,'brand_list.html',{'data':data})
+    return render(request,'lista_marca.html',{'data':data})
 
 # Lista de Produtos
 def lista_produto(request):
