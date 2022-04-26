@@ -18,7 +18,7 @@ class ReviewAdd(forms.ModelForm):
 class FormListaEndereco(forms.ModelForm):
 	class Meta:
 		model=UserEnderecoLista
-		fields=('cep','endereco','telefone','status',)
+		fields=('cep','endereco','bairro','cidade','estado','telefone','whathsapp','status',)
 
 # ProfileEdit
 class ProfileForm(UserChangeForm):
