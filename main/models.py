@@ -48,7 +48,7 @@ class Categoria(models.Model):
         return self.title
 
 # Marca
-class Marca(models.Model):
+class Marca(models.Model): 
     titulo=models.CharField(max_length=100)
     imagemarca=models.ImageField(upload_to="brand_imgs/")
 
@@ -80,7 +80,7 @@ class Size(models.Model):
     title=models.CharField(max_length=100)
 
     class Meta:
-        verbose_name_plural='5. Cidades'
+        verbose_name_plural='5. Cidades' 
 
     def __str__(self):
         return self.title
@@ -90,13 +90,16 @@ class Size(models.Model):
 class Produto(models.Model):
     titulo=models.CharField(max_length=200)
     image=models.ImageField(upload_to="product_imgs/",null=True)
+    image1=models.ImageField(upload_to="product_imgs/",null=True)
+    image2=models.ImageField(upload_to="product_imgs/",null=True)
+    image3=models.ImageField(upload_to="product_imgs/",null=True)
     slug=models.CharField(max_length=400)
     detalhes=models.TextField()
     especificacoes=models.TextField()
     categoria=models.ForeignKey(Categoria,on_delete=models.CASCADE)
     marca=models.ForeignKey(Marca,on_delete=models.CASCADE)
     status=models.BooleanField(default=True)
-    is_featured=models.BooleanField(default=False)
+    e_apresentado=models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural='6. Produtos'
@@ -119,14 +122,14 @@ class ProdutoAtributo(models.Model):
         verbose_name_plural='7. Produtos Atributos'
 
     def __str__(self):
-        return self.product.title
+        return self.product.titulo
 
     def image_tag(self):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
 
 # Pedido
 status_choice=(
-        ('processo','In Processo'),
+        ('processo','Processo'),
         ('enviado','Enviado'),
         ('entregue','Entregue'),
     )
