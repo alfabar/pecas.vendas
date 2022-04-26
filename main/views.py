@@ -37,19 +37,19 @@ def lista_produto(request):
 	data=Produto.objects.all().order_by('-id')[:3]
 	min_price=ProdutoAtributo.objects.aggregate(Min('price'))
 	max_price=ProdutoAtributo.objects.aggregate(Max('price')) 
-	return render(request,'product_list.html',{'data':data,'total_data':total_data,'min_price':min_price,'max_price':max_price,})
+	return render(request,'lista-produto.html',{'data':data,'total_data':total_data,'min_price':min_price,'max_price':max_price,})
 
 # Lista de produtos de acordo com a categoria
 def lista_produto_categoria(request,cat_id):
 	categoria=Categoria.objects.get(id=cat_id)
 	data=Produto.objects.filter(categoria=categoria).order_by('-id')
-	return render(request,'category_product_list.html',{'data':data,})
+	return render(request,'lista-produto-categoria.html',{'data':data,})
 
 # Lista de produtos de acordo com a marca
 def lista_produto_marca(request,brand_id):
 	brand=Marca.objects.get(id=brand_id)
 	data=Produto.objects.filter(brand=brand).order_by('-id')
-	return render(request,'category_product_list.html',{
+	return render(request,'lista-produto-categoria.html',{
 			'data':data,
 			})
 @login_required
