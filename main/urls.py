@@ -24,8 +24,8 @@ urlpatterns=[
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('pagaento-efetuado/', views.pagaento_efetuado, name='pagaento-efetuado'), 
     path('pagamento-cancelado/', views.pagamento_cancelado, name='pagamento-cancelado'),
-    path('save-review/<int:pid>',views.save_review, name='save-review'),
-    # User Section Start
+    path('salvar-avaliacao/<int:pid>',views.salvar_avaliacao, name='salvar-avaliacao'),
+    # Inicio Seção Usuario
     path('my-dashboard',views.my_dashboard, name='my_dashboard'),
     path('my-orders',views.my_orders, name='my_orders'),
     path('my-orders-items/<int:id>',views.my_order_items, name='my_order_items'),
