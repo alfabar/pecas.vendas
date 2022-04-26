@@ -142,7 +142,7 @@ def carrinho_add(request):
 
 # Página da lista de carrinhos
 
-def cart_list(request):
+def lista_carrinho(request):
 	total_amt=0
 	if 'cartdata' in request.session:
 		for p_id,item in request.session['cartdata'].items():
@@ -153,7 +153,7 @@ def cart_list(request):
 
 
 # Excluir item do carrinho
-def delete_cart_item(request):
+def deletar_carrinho_item(request):
 	p_id=str(request.GET['id'])
 	if 'cartdata' in request.session:
 		if p_id in request.session['cartdata']:
@@ -167,7 +167,7 @@ def delete_cart_item(request):
 	return JsonResponse({'data':t,'totalitems':len(request.session['cartdata'])})
 
 # Excluir item do carrinho
-def update_cart_item(request):
+def atualizar_item_carrinho(request):
 	p_id=str(request.GET['id'])
 	p_qty=request.GET['qty']
 	if 'cartdata' in request.session:
@@ -182,7 +182,7 @@ def update_cart_item(request):
 	return JsonResponse({'data':t,'totalitems':len(request.session['cartdata'])})
 
 # Formulário de inscrição
-def signup(request):
+def inscrever_se(request):
 	if request.method=='POST':
 		form=SignupForm(request.POST)
 		if form.is_valid():
@@ -232,21 +232,21 @@ def checkout(request):
 		    'invoice': 'INV-'+str(order.id),
 		    'currency_code': 'BRL',
 		    'notify_url': 'http://{}{}'.format(host,reverse('paypal-ipn')),
-		    'return_url': 'http://{}{}'.format(host,reverse('payment_done')),
-		    'cancel_return': 'http://{}{}'.format(host,reverse('payment_cancelled')),
+		    'return_url': 'http://{}{}'.format(host,reverse('pagaento_efetuado')),
+		    'cancel_return': 'http://{}{}'.format(host,reverse('pagamento_cancelado')),
 		}
 		form = PayPalPaymentsForm(initial=paypal_dict)
 		endereco=UserEnderecoLista.objects.filter(user=request.user,status=True).first()
 		return render(request, 'checkout.html',{'cart_data':request.session['cartdata'],'totalitems':len(request.session['cartdata']),'total_amt':total_amt,'form':form,'endereco':endereco})
 
 @csrf_exempt
-def payment_done(request):
+def pagaento_efetuado(request):
 	returnData=request.POST
 	return render(request, 'payment-success.html',{'data':returnData})
 
 
 @csrf_exempt
-def payment_canceled(request):
+def pagamento_cancelado(request):
 	return render(request, 'payment-fail.html')
 
 
