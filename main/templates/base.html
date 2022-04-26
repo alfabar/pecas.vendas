@@ -104,7 +104,7 @@
                                 <a class="dropdown-item" href="contato">Contate-Nos</a>
                             </div>
                         </li>
-                        <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'cart' %}"><i
+                        <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'carrinho' %}"><i
                                     class="fa fa-shopping-cart"></i> Carrinho (<span
                                     class="cart-list">{{request.session.cartdata|length}}</span>)</a></li>
                         <li class="nav-item dropdown">
@@ -116,7 +116,7 @@
                                         <a class="dropdown-item active" href="{% url 'my_dashboard' %}">Painel</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Sair</a> {% else %}
                                         <a class="dropdown-item" href="{% url 'login' %}">Entrar</a>
-                                        <a class="dropdown-item" href="{% url 'signup' %}">Cadastrar</a> {% endif %}
+                                        <a class="dropdown-item" href="{% url 'inscrever-se' %}">Cadastrar</a> {% endif %}
                                     </div>
                                     <div class="col-md-7 mega-menu-img m-auto text-center pl-0">
                                         <a href="#"><img src="{% static 'img/offer_icon.png' %}" alt="" class="img-fluid"></a>
