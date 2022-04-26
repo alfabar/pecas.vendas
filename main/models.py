@@ -131,15 +131,14 @@ class CarrinhoPedido(models.Model):
     total_amt=models.FloatField()
     paid_status=models.BooleanField(default=False)
     order_dt=models.DateTimeField(auto_now_add=True)
-    order_status=models.CharField(choices=status_choice,default='processo',max_length=150)
-    
+    order_status=models.CharField(choices=status_choice,default='processo',max_length=150)    
 
     class Meta:
         verbose_name_plural='8. Pedidos'
         
 
 # Pedido itens
-class CarrinhoPedidoItems(models.Model):
+class CarrinhoPedidoItems(models.Model): 
     order=models.ForeignKey(CarrinhoPedido,on_delete=models.CASCADE)
     invoice_no=models.CharField(max_length=150)
     item=models.CharField(max_length=150)
