@@ -284,12 +284,12 @@ def meu_painel(request):
 	return render(request, 'user/dashboard.html',{'monthNumber':monthNumber,'totalOrders':totalOrders})
 
 # Minhas Ordens
-def my_orders(request):
+def meus_pedidos(request):
 	orders=CarrinhoPedido.objects.filter(user=request.user).order_by('-id')
 	return render(request, 'user/orders.html',{'orders':orders})
 
 # Detalhe do pedido
-def my_order_items(request,id):
+def meus_pedidos_items(request,id):
 	order=CarrinhoPedido.objects.get(pk=id)
 	orderitems=CarrinhoPedidoItems.objects.filter(order=order).order_by('-id')
 	return render(request, 'user/order-items.html',{'orderitems':orderitems})
@@ -320,7 +320,7 @@ def minha_lista_desejo(request):
 	return render(request, 'user/lista_desejo.html',{'wlist':wlist})
 
 # Minhas Avaliações
-def my_reviews(request):
+def meus_comentarios(request):
 	reviews=ProdutoFeedback.objects.filter(user=request.user).order_by('-id')
 	return render(request, 'user/reviews.html',{'reviews':reviews})
 
