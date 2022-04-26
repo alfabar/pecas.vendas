@@ -113,7 +113,7 @@
                                 <div class="row">
                                     <div class="col-md-5">
                                         {% if user.is_authenticated %}
-                                        <a class="dropdown-item active" href="{% url 'my_dashboard' %}">Painel</a>
+                                        <a class="dropdown-item active" href="{% url 'meu-painel' %}">Painel</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Sair</a> {% else %}
                                         <a class="dropdown-item" href="{% url 'login' %}">Entrar</a>
                                         <a class="dropdown-item" href="{% url 'inscrever-se' %}">Cadastrar</a> {% endif %}
