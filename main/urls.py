@@ -27,15 +27,15 @@ urlpatterns=[
     path('salvar-avaliacao/<int:pid>',views.salvar_avaliacao, name='salvar-avaliacao'),
     # Inicio Seção Usuario
     path('meu-painel',views.meu_painel, name='meu-painel'),
-    path('my-orders',views.my_orders, name='my_orders'),
-    path('my-orders-items/<int:id>',views.my_order_items, name='my_order_items'),
+    path('meus-pedidos',views.meus_pedidos, name='meus-pedidos'),
+    path('meus-pedidos-items/<int:id>',views.meus_pedidos_items, name='meus-pedidos-items'),
     # End
 
     # lista_desejo
     path('add-lista-desejo',views.minha_lista_desejo, name='minha_lista_desejo'),
     path('minha_lista_desejo',views.minha_lista_desejo, name='minha_lista_desejo'),
     # My Reviews
-    path('my-reviews',views.my_reviews, name='my-reviews'),
+    path('meus-comentarios',views.meus_comentarios, name='meus-comentarios'),
     # My enderecoBook
     path('minha_lista_endereco',views.minha_lista_endereco, name='minha_lista_endereco'),
     path('adicionar-endereco',views.salvar_endereco, name='adicionar-endereco'),
