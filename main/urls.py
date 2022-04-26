@@ -41,7 +41,7 @@ urlpatterns=[
     path('adicionar-endereco',views.salvar_endereco, name='adicionar-endereco'),
     path('ativar-endereco',views.ativar_endereco, name='ativar-endereco'),
     path('atualizar-endereco/<int:id>',views.atualizar_endereco, name='atualizar-endereco'),
-    path('editar-perfil',views.edit_profile, name='editar-perfil'),
+    path('editar-perfil',views.editar_perfil, name='editar-perfil'),
 ]
 
 if settings.DEBUG:
