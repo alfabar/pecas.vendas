@@ -46,9 +46,9 @@ def lista_produto_categoria(request,cat_id):
 	return render(request,'lista-produto-categoria.html',{'data':data,})
 
 # Lista de produtos de acordo com a marca
-def lista_produto_marca(request,brand_id):
-	brand=Marca.objects.get(id=brand_id)
-	data=Produto.objects.filter(brand=brand).order_by('-id')
+def lista_produto_marca(request,marca_id):
+	marca=Marca.objects.get(id=marca_id)
+	data=Produto.objects.filter(marca=marca).order_by('-id')
 	return render(request,'lista-produto-categoria.html',{
 			'data':data,
 			})
@@ -89,7 +89,7 @@ def search(request):
 def filtro_dados(request):
 	colors=request.GET.getlist('color[]')
 	categories=request.GET.getlist('categoria[]')
-	brands=request.GET.getlist('brand[]')
+	marcas=request.GET.getlist('marca[]')
 	sizes=request.GET.getlist('size[]')
 	minPrice=request.GET['minPrice']
 	maxPrice=request.GET['maxPrice']
@@ -100,8 +100,8 @@ def filtro_dados(request):
 		allProducts=allProducts.filter(ProdutoAtributo__color__id__in=colors).distinct()
 	if len(categories)>0:
 		allProducts=allProducts.filter(categoria__id__in=categories).distinct()
-	if len(brands)>0:
-		allProducts=allProducts.filter(brand__id__in=brands).distinct()
+	if len(marcas)>0:
+		allProducts=allProducts.filter(marca__id__in=marcas).distinct()
 	if len(sizes)>0:
 		allProducts=allProducts.filter(ProdutoAtributo__size__id__in=sizes).distinct()
 	t=render_to_string('ajax/product-list.html',{'data':allProducts})
