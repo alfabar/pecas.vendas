@@ -332,8 +332,9 @@ def minha_lista_endereco(request):
 # Salvar o catálogo de endereços
 def salvar_endereco(request):
 	msg=None
-	if request.method=='POST':
+	if request.method=='POST':		
 		form=FormListaEndereco(request.POST)
+		print(FormListaEndereco)
 		if form.is_valid():
 			saveForm=form.save(commit=False)
 			saveForm.user=request.user
@@ -342,7 +343,7 @@ def salvar_endereco(request):
 			saveForm.save()
 			msg='Os dados foram salvos'
 	form=FormListaEndereco
-	return render(request, 'user/add-endereco.html',{'form':form,'msg':msg})
+	return render(request, 'user/add-endereco.html',{'form':form,'msg':msg,'criar_sinal':criar_sinal})
 
 # Ativar endereço
 def ativar_endereco(request):
