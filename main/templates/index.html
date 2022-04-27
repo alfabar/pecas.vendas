@@ -32,20 +32,20 @@
             {% for product in data %}
             <div class="col-md-3 mb-4">
                 <div class="card shadow">
-                    <a href="/produto/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
+                    <a href="/produto/{{product.slug}}/{{product.id}}"><img src="/media/{{product.imagem}}" class="card-img-top" alt="{{product.title}}"></a>
                     <div class="card-body">
-                        <p class="card-text"><a href="/produto/{{product.slug}}/{{product.id}}">{{product.title}}</a></p>
-                        <h6>R$ <strong class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</strong></h6>
+                        <p class="card-text"><a href="/produto/{{product.slug}}/{{product.id}}">{{product.titulo}}</a></p>
+                        <h6>R$ <strong class="product-price-{{product.id}}">{{product.price}}</strong></h6>
                     </div>
                     <div class="card-footer">
                         <p>
                             <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i>
                         </p>
-                        {{product.productattribute_set.first.color.title}}<br> {{product.productattribute_set.first.size.title}}
+                        {{product.first.color.title}}<br> {{product.first.size.title}}
                         <input type="hidden" value="1" class="form-control product-qty-{{product.id}}" id="productQty" />
-                        <input type="hidden" class="product-image-{{product.id}}" value="{{product.productattribute_set.first.image}}" />
+                        <input type="hidden" class="product-image-{{product.id}}" value="{{product.imagem}}" />
                         <input type="hidden" class="product-id-{{product.id}}" value="{{product.id}}" />
-                        <input type="hidden" class="product-title-{{product.id}}" value="{{product.title}}" />
+                        <input type="hidden" class="product-title-{{product.id}}" value="{{product.titulo}}" />
                         <div></div><br>
                         <button class="btn btn-general btn-white add-to-cart" data-index="{{product.id}}"><i class="fa fa-shopping-cart"></i></button> {% if user.is_authenticated %}
                         <button class="btn btn-general btn-green add-wishlist" data-product="{{product.id}}"><i class="fa fa-heart"></i></button> {% else %}

@@ -15,7 +15,7 @@ class PromocaoAdmin(admin.ModelAdmin):
 admin.site.register(Promocao,PromocaoAdmin)
 
 class CategoriaAdmin(admin.ModelAdmin):
-	list_display=('title','image_tag')
+	list_display=('titulo','image_tag')
 admin.site.register(Categoria,CategoriaAdmin)
 class MarcaAdmin(admin.ModelAdmin):
 	list_display=('titulo','image_tag')
@@ -31,7 +31,7 @@ admin.site.register(Produto,ProdutoAdmin)
 
 # Product Attribute
 class ProdutoAtributoAdmin(admin.ModelAdmin):
-    list_display=('id','image_tag','product','price','color','size')
+    list_display=('id','image_tag','produto','price','color','size')
 admin.site.register(ProdutoAtributo,ProdutoAtributoAdmin)
 
 # Order
@@ -46,7 +46,7 @@ admin.site.register(CarrinhoPedidoItems,CarrinhoPedidoItemsAdmin)
 
 
 class ProdutoFeedbackAdmin(admin.ModelAdmin):
-	list_display=('user','product','review_text','get_review_rating')
+	list_display=('user','produto','review_text','get_review_rating')
 admin.site.register(ProdutoFeedback,ProdutoFeedbackAdmin)
 
 

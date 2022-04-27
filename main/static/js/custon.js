@@ -80,7 +80,7 @@ $(document).ready(function() {
         var _productPrice = $(".product-price-" + _index).text();
         // Ajax
         $.ajax({
-            url: '/add-to-cart',
+            url: '/adicionar-carrinho',
             data: {
                 'id': _productId,
                 'image': _productImage,
@@ -107,7 +107,7 @@ $(document).ready(function() {
         var _vm = $(this);
         // Ajax
         $.ajax({
-            url: '/delete-from-cart',
+            url: '/deletar-item-carrinho',
             data: {
                 'id': _pId,
             },
@@ -131,7 +131,7 @@ $(document).ready(function() {
         var _vm = $(this);
         // Ajax
         $.ajax({
-            url: '/update-cart',
+            url: '/atualizar-carrinho',
             data: {
                 'id': _pId,
                 'qty': _pQty

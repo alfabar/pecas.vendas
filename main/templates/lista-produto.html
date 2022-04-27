@@ -13,26 +13,26 @@
             </h3>
             <div class="row" id="filteredProducts">
                 <p class="ajaxLoader">Carregando...</p>
-                {% for product in data %}
+                {% for produto in data %}
                 <div class="col-md-3 mb-4">
                     <div class="card shadow">
-                        <a href="/produto/{{product.slug}}/{{product.id}}"><img src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
+                        <a href="/produto/{{produto.slug}}/{{produto.id}}"><img src="/media/{{produto.productattribute_set.first.imagem}}" class="card-img-top" alt="{{produto.titulo}}"></a>
                         <div class="card-body">
-                            <p class="card-text"><a href="/produto/{{product.slug}}/{{product.id}}">{{product.title}}</a></p>
-                            <h6>R$ <strong class="product-price-{{product.id}}">{{product.productattribute_set.first.price}}</strong></h6>
+                            <p class="card-text"><a href="/produto/{{produto.slug}}/{{produto.id}}">{{produto.titulo}}</a></p>
+                            <h6>R$ <strong class="product-price-{{produto.id}}">{{produto.productattribute_set.first.price}}</strong></h6>
                         </div>
                         <div class="card-footer">
                             <p>
                                 <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i> <i class="fa fa-star text-warning"></i>
                             </p>
-                            {{product.productattribute_set.first.color.title}}<br> {{product.productattribute_set.first.size.title}}
-                            <input type="hidden" value="1" class="form-control product-qty-{{product.id}}" id="productQty" />
-                            <input type="hidden" class="product-image-{{product.id}}" value="{{product.productattribute_set.first.image}}" />
-                            <input type="hidden" class="product-id-{{product.id}}" value="{{product.id}}" />
-                            <input type="hidden" class="product-title-{{product.id}}" value="{{product.title}}" />
+                            {{produto.productattribute_set.first.color.title}}<br> {{produto.productattribute_set.first.size.title}}
+                            <input type="hidden" value="1" class="form-control product-qty-{{produto.id}}" id="productQty" />
+                            <input type="hidden" class="product-image-{{produto.id}}" value="{{produto.productattribute_set.first.imagem}}" />
+                            <input type="hidden" class="product-id-{{produto.id}}" value="{{produto.id}}" />
+                            <input type="hidden" class="product-title-{{produto.id}}" value="{{produto.titulo}}" />
                             <div></div>
-                            <button class="btn btn-general btn-white add-to-cart" data-index="{{product.id}}"><i class="fa fa-shopping-cart"></i></button> {% if user.is_authenticated %}
-                            <button class="btn btn-general btn-green add-wishlist" data-product="{{product.id}}"><i class="fa fa-heart"></i></button> {% else %}
+                            <button class="btn btn-general btn-white add-to-cart" data-index="{{produto.id}}"><i class="fa fa-shopping-cart"></i></button> {% if user.is_authenticated %}
+                            <button class="btn btn-general btn-green add-wishlist" data-product="{{produto.id}}"><i class="fa fa-heart"></i></button> {% else %}
                             <button class="btn btn-general btn-green disabled"><i class="fa fa-heart"></i></button> {% endif %}
 
                         </div>

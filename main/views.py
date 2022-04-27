@@ -55,29 +55,29 @@ def lista_produto_marca(request,marca_id):
 @login_required
 # Detalhe do produto
 def detalhe_produto(request,slug,id):
-	product=Produto.objects.get(id=id)
-	related_products=Produto.objects.filter(categoria=product.categoria).exclude(id=id)[:4]
-	colors=ProdutoAtributo.objects.filter(product=product).values('color__id','color__title','color__color_code').distinct()
-	sizes=ProdutoAtributo.objects.filter(product=product).values('size__id','size__title','price','color__id').distinct()
+	produto=Produto.objects.get(id=id)
+	related_products=Produto.objects.filter(categoria=produto.categoria).exclude(id=id)[:4]
+	colors=ProdutoAtributo.objects.filter(produto=produto).values('color__id','color__title','color__color_code').distinct()
+	sizes=ProdutoAtributo.objects.filter(produto=produto).values('size__id','size__title','price','color__id').distinct()
 	reviewForm=ReviewAdd()
 
 	# Verificar
 	canAdd=True
-	reviewCheck=ProdutoFeedback.objects.filter(user=request.user,product=product).count()
+	reviewCheck=ProdutoFeedback.objects.filter(user=request.user,produto=produto).count()
 	if request.user.is_authenticated:
 		if reviewCheck > 0:
 			canAdd=False
 	# End
 
 	# Buscar avaliações
-	reviews=ProdutoFeedback.objects.filter(product=product)
+	reviews=ProdutoFeedback.objects.filter(produto=produto)
 	# End
 
 	# Buscar classificação avg para avaliações
-	avg_reviews=ProdutoFeedback.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
+	avg_reviews=ProdutoFeedback.objects.filter(produto=produto).aggregate(avg_rating=Avg('review_rating'))
 	# End
 
-	return render(request, 'detalhes-produtos.html',{'data':product,'related':related_products,'colors':colors,'sizes':sizes,'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews,'avg_reviews':avg_reviews})
+	return render(request, 'detalhes-produtos.html',{'data':produto,'related':related_products,'colors':colors,'sizes':sizes,'reviewForm':reviewForm,'canAdd':canAdd,'reviews':reviews,'avg_reviews':avg_reviews})
 
 # Procurar
 def search(request):
@@ -121,7 +121,7 @@ def carrinho_add(request):
 	# del request.session['cartdata']
 	cart_p={}
 	cart_p[str(request.GET['id'])]={
-		'image':request.GET['image'],
+		'imagem':request.GET['image'],
 		'title':request.GET['title'],
 		'qty':request.GET['qty'],
 		'price':request.GET['price'],
@@ -217,7 +217,7 @@ def checkout(request):
 				order=order,
 				invoice_no='INV-'+str(order.id),
 				item=item['title'],
-				image=item['image'],
+				image=item['imagem'],
 				qty=item['qty'],
 				price=item['price'],
 				total=float(item['qty'])*float(item['price'])
@@ -232,8 +232,8 @@ def checkout(request):
 		    'invoice': 'INV-'+str(order.id),
 		    'currency_code': 'BRL',
 		    'notify_url': 'http://{}{}'.format(host,reverse('paypal-ipn')),
-		    'return_url': 'http://{}{}'.format(host,reverse('pagaento_efetuado')),
-		    'cancel_return': 'http://{}{}'.format(host,reverse('pagamento_cancelado')),
+		    'return_url': 'http://{}{}'.format(host,reverse('pagaento-efetuado')),
+		    'cancel_return': 'http://{}{}'.format(host,reverse('pagamento-cancelado')),
 		}
 		form = PayPalPaymentsForm(initial=paypal_dict)
 		endereco=UserEnderecoLista.objects.filter(user=request.user,status=True).first()
@@ -252,11 +252,11 @@ def pagamento_cancelado(request):
 
 # Salvar revisão
 def salvar_avaliacao(request,pid):
-	product=Produto.objects.get(pk=pid)
+	produto=Produto.objects.get(pk=pid)
 	user=request.user
 	review=ProdutoFeedback.objects.create(
 		user=user,
-		product=product,
+		produto=produto,
 		review_text=request.POST['review_text'],
 		review_rating=request.POST['review_rating'],
 		)
@@ -267,7 +267,7 @@ def salvar_avaliacao(request,pid):
 	}
 
 	# Buscar classificação avg para avaliações
-	avg_reviews=ProdutoFeedback.objects.filter(product=product).aggregate(avg_rating=Avg('review_rating'))
+	avg_reviews=ProdutoFeedback.objects.filter(produto=produto).aggregate(avg_rating=Avg('review_rating'))
 	# End
 
 	return JsonResponse({'bool':True,'data':data,'avg_reviews':avg_reviews})
@@ -296,17 +296,17 @@ def meus_pedidos_items(request,id):
 
 # Lista de desejos
 def add_lista_desejo(request):
-	pid=request.GET['product']
-	product=Produto.objects.get(pk=pid)
+	pid=request.GET['produto']
+	produto=Produto.objects.get(pk=pid)
 	data={}
-	checkw=ListaDesejo.objects.filter(product=product,user=request.user).count()
+	checkw=ListaDesejo.objects.filter(produto=produto,user=request.user).count()
 	if checkw > 0:
 		data={
 			'bool':False
 		}
 	else:
 		lista_desejo=ListaDesejo.objects.create(
-			product=product,
+			produto=produto,
 			user=request.user
 		)
 		data={
@@ -343,7 +343,7 @@ def salvar_endereco(request):
 			saveForm.save()
 			msg='Os dados foram salvos'
 	form=FormListaEndereco
-	return render(request, 'user/add-endereco.html',{'form':form,'msg':msg,'criar_sinal':criar_sinal})
+	return render(request, 'user/add-endereco.html',{'form':form,'msg':msg})
 
 # Ativar endereço
 def ativar_endereco(request):
