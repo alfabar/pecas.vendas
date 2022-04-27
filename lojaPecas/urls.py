@@ -21,7 +21,9 @@ urlpatterns = [
     path('jet/dashboard/', include('jet.dashboard.urls','jet-dashboard')),
     path('admin/', admin.site.urls),
     path('',include('main.urls')),
+    #contato
     path('contato/',include('contato.urls')),
+    #contas-login
     path('contas/',include('django.contrib.auth.urls')),
     path('accounts/',include('django.contrib.auth.urls')),
 
