@@ -82,7 +82,7 @@ def detalhe_produto(request,slug,id):
 # Procurar
 def search(request):
 	q=request.GET['q']
-	data=Produto.objects.filter(title__icontains=q).order_by('-id')
+	data=Produto.objects.filter(titulo__icontains=q).order_by('-id')
 	return render(request,'procurar.html',{'data':data})
 
 # Dados do filtro
