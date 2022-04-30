@@ -42,7 +42,6 @@
     <link rel="stylesheet" href="{% static 'css/shop.css' %}">
 
     <!-- Chat boot -->
-    <link rel="stylesheet" type="text/css" href="{% static 'dist/jquery.convform.css' %}">
 </head>
 
 <body id="home-p">
@@ -113,7 +112,10 @@
                                 <div class="row">
                                     <div class="col-md-5">
                                         {% if user.is_authenticated %}
-                                        <a class="dropdown-item active" href="{% url 'meu-painel' %}">Painel</a>
+                                        <a class="dropdown-item {% if request.path == '/meu-painel' %}active {% endif %}" href="meu-painel">Painel</a>
+                                        <a class="dropdown-item {% if request.path == '/minha_lista_desejo' %}active {% endif %}" href="minha_lista_desejo">Favoritos</a>
+                                        <a class="dropdown-item {% if request.path == '/promocoes' %}active {% endif %}" href="promocoes">Promoções</a>
+                                        <a class="dropdown-item {% if request.path == '/editar-perfil' %}active {% endif %}" href="{% url 'meu-painel' %}">Painel</a>
                                         <a class="dropdown-item" href="{% url 'sair' %}">Sair</a> {% else %}
                                         <a class="dropdown-item" href="{% url 'login' %}">Entrar</a>
                                         <a class="dropdown-item" href="{% url 'inscrever-se' %}">Cadastrar</a> {% endif %}
@@ -292,11 +294,11 @@
     <script type="text/javascript" src="{% static 'dist/autosize.min.js' %}"></script>
 
     <!-- Add step #2 -->
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <!--   <script src="https://sdk.mercadopago.com/js/v2"></script>
     <script>
         const mp = new MercadoPago('TEST-a900e669-330d-409b-bb09-0b3ca35060a0');
         // Add step #3
-    </script>
+    </script> -->
 
 
 
