@@ -6,6 +6,7 @@
         <div class="col-md-3">
             {% include 'user/user-sidebar.html' %}
         </div>
+        {% if order %}
         <div class="col-md-9">
             <div class="table-responsive">
                 <table class="table-bordered table">
@@ -30,6 +31,9 @@
                 </table>
             </div>
         </div>
+        {% else %}
+        <p>No momento não tem pedidos aqui</p>
+        {% endif%}
     </div>
 </main>
 {% endblock %}
