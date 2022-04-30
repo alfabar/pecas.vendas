@@ -24,7 +24,7 @@ urlpatterns = [
     #contato
     path('contato/',include('contato.urls')),
     #contas-login
-    path('contas/',include('django.contrib.auth.urls')),
+    #path('contas/',include('django.auth.urls')),
     path('accounts/',include('django.contrib.auth.urls')),
 
 ]
