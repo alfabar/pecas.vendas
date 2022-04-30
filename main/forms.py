@@ -9,8 +9,15 @@ from .models import ProdutoFeedback, UserEnderecoLista
 class SignupForm(UserCreationForm):
 	class Meta:
 		model = User
-		fields = ('first_name', 'last_name', 'email',
-		          'username', 'password1', 'password2')
+		fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
+		widgets = {
+			'first_name': forms.TextInput(attrs={'class': 'form-control'},),
+			'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
+			'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
+			'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
+			'password1': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
+			'password2': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
+      }
 
 # Review Add Form
 
@@ -48,3 +55,9 @@ class ProfileForm(UserChangeForm):
 	class Meta:
 		model=User
 		fields=('first_name','last_name','email','username')
+		widgets = {
+					'first_name': forms.TextInput(attrs={'class': 'form-control'},),
+					'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
+					'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
+					'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),					
+				}
