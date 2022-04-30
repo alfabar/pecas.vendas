@@ -33,18 +33,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'main',
     'jet.dashboard',
-    'jet',
-    'contato',
-    'pagamentos',
+    'jet',   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'paypal.standard.ipn'
+    'paypal.standard.ipn',
+    'contato',
+    'pagamentos',
+    'main',
+    'appgoogle'
 ]
 
 MIDDLEWARE = [
