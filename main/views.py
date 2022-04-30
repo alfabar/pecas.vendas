@@ -436,17 +436,6 @@ def editar_perfil(request):
 
 def atualizar_endereco(request, id):
     endereco = UserEnderecoLista.objects.get(pk=id)
-
-    POST = {}
-    if POST.get('consultar', 'default_value'):
-        form_cep = FormListaCep(request.POST, instance=endereco)
-        cep = request.POST.get('cep')
-        if cep:
-            resulta_cep = get_address_from_cep(
-                cep, webservice=WebService.VIACEP)
-            if resulta_cep:
-                print(resulta_cep)
-            # print(resulta_cep)
     msg = None
     if request.method == 'POST':
         form = FormListaEndereco(request.POST, instance=endereco)
@@ -458,6 +447,4 @@ def atualizar_endereco(request, id):
             saveForm.save()
             msg = 'Os dados foram salvos'
     form = FormListaEndereco(instance=endereco)
-    form_cep = FormListaCep(request.POST, instance=endereco)
-
-    return render(request, 'user/atualizar-endereco.html', {'form': form, 'form_cep': form_cep, 'msg': msg})
+    return render(request, 'user/atualizar-endereco.html', {'form': form,'msg': msg})
