@@ -1,18 +1,97 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+<script>
+    function limpa_formulário_cep() {
+        //Limpa valores do formulário de cep.
+        document.getElementById('id_endereco').value = ("");
+        document.getElementById('id_bairro').value = ("");
+        document.getElementById('id_cidade').value = ("");
+        document.getElementById('id_estado').value = ("");
+
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('id_endereco').value = (conteudo.logradouro);
+            document.getElementById('id_bairro').value = (conteudo.bairro);
+            document.getElementById('id_cidade').value = (conteudo.localidade);
+            document.getElementById('id_estado').value = (conteudo.uf);
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+
+    function pesquisacep(valor) {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if (validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('id_endereco').value = "...";
+                document.getElementById('id_bairro').value = "...";
+                document.getElementById('id_cidade').value = "...";
+                document.getElementById('id_estado').value = "...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    };
+</script>
 <main class="container my-4">
     <!-- Featured Products -->
-    <h3 class="my-4 border-bottom pb-1">Lista de Endereços <a href="{% url 'adicionar-endereco' %}" class="float-right btn btn-sm btn-success"><i class="fa fa-plus"></i></a></h3>
+
     <div class="row">
         <div class="col-md-3">
             {% include 'user/user-sidebar.html' %}
         </div>
         <div class="col-md-9">
+            <h3 class="text-ali mr-1 my-4 border-bottom pb-1 text-center">Adicione Endereços <a href="{% url 'adicionar-endereco' %}" class="float-right btn btn-general btn-white text-center"><i class="fa fa-plus"></i></a></h3>
             {% if msg %}
             <p class="text-success">{{msg}}</p>
             {% endif %}
-            <table class="table table-bordered">
+            <!-- <table class="table table-bordered">
                 <form method="post">
-                    {% csrf_token %} {{form}}
+                    {% csrf_token %} {{form_cep.as_p}}
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="consultar" id="consultar" name="consultar" class="btn btn-general btn-white text-center" />
+                            <input name="cep" type="text" id="cep" value="" size="10" maxlength="9" onblur="pesquisacep(this.value);" />
+                        </td>
+                    </tr>
+                </form>
+            </table> -->
+            <table class="table">
+                <form method="post">
+                    {% csrf_token %} {{form.as_p}}
                     <tr>
                         <td colspan="2">
                             <input type="submit" value="Salvar" class="btn btn-general btn-white text-center" />
