@@ -161,10 +161,10 @@
                     {% for product in related %}
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="card ">
-                            <a href="/product/{{product.slug}}/{{product.id}}"><img class="card-img-top" src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
+                            <a href="/produto/{{product.slug}}/{{product.id}}"><img class="card-img-top" src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
                             <div class="card-body text-center">
                                 <div class="card-title">
-                                    <a href="/product/{{product.slug}}/{{product.id}}">{{product.title}}</a>
+                                    <a href="/produto/{{product.slug}}/{{product.id}}">{{product.title}}</a>
                                 </div>
                                 <h6>R$ <strong class="product-price-{{data.id}}">{{data.productattribute_set.first.price}}</strong></h6>
                                 <div class="cart-icon text-center">
@@ -192,6 +192,6 @@
 </script>
 
 <!-- Adicionar ao Carrinho -->
-<script src="{% static 'custom.js' %}"></script>
+<!-- <script src="{% static 'custom.js' %}"></script> -->
 
 {% endblock %}
