@@ -1869,3 +1869,26 @@ address.address-details-f a {
         padding-bottom: 2px;
     }
 }
+
+
+/* REGRA CSS PARA DETERMINAR QUANDO FICA MODELO CELULAR E QUNDO FICA DESKTOP */
+
+.view-mobile {
+    display: block!important
+}
+
+.view-desktop {
+    display: none!important
+}
+
+@media screen and (min-width:1030px) {
+    .view-mobile {
+        display: none!important
+    }
+    .view-desktop {
+        display: block!important
+    }
+}
+
+
+/* Menu versão mobile first */
