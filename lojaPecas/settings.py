@@ -30,8 +30,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
 INSTALLED_APPS = [
     'jet.dashboard',
     'jet',   
@@ -42,11 +40,35 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'paypal.standard.ipn',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'contato',
     'pagamentos',
     'main',
     'appgoogle'
 ]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '685119274725-v0mas78slecj8npms56m2rd5di4b67gb.apps.googleusercontent.com',
+            'secret': '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',
+            'key': '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'
+        }
+    }
+}
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,6 +98,16 @@ TEMPLATES = [
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+# Application definition
 
 WSGI_APPLICATION = 'lojaPecas.wsgi.application'
 
