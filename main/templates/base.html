@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}{% load account socialaccount %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -126,8 +126,8 @@
                                             <a class="dropdown-item {% if request.path == '/minha_lista_desejo' %}active {% endif %}" href="minha_lista_desejo">Favoritos</a>
                                             <a class="dropdown-item {% if request.path == '/promocoes' %}active {% endif %}" href="promocoes">Promoções</a>
                                             <a class="dropdown-item {% if request.path == '/editar-perfil' %}active {% endif %}" href="{% url 'meu-painel' %}">Painel</a>
-                                            <a class="dropdown-item" href="{% url 'logout' %}">Sair</a> {% else %}
-                                            <a class="dropdown-item" href="{% url 'login' %}">Entrar</a>
+                                            <a class="dropdown-item" href="{% url 'account_logout' %}">Sair</a> {% else %}
+                                            <a class="dropdown-item" href="{% url 'account_login' %}">Entrar</a>
                                             <a class="dropdown-item" href="{% url 'inscrever-se' %}">Cadastrar</a> {% endif %}
                                         </div>
                                         <div class="col-md-7 mega-menu-img m-auto text-center pl-0">
