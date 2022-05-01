@@ -7,7 +7,7 @@
     {% csrf_token %} {% if redirect_field_value %}
     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" /> {% endif %}
     <button type="submit">{% trans 'Sign Out' %}</button>
-    <a href="{% url 'account_logout' %}">Sair</a>
+    <a href="{% url 'sair' %}">Sair</a>
 </form>
 
 
