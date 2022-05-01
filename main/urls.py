@@ -1,20 +1,32 @@
 from django.urls import path,include
 from . import views
+from django.contrib.auth import views as auth_views
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns=[ 
-    path('',views.home,name='home'),
+    #partes comun 
+    path('',views.home,name='home'), 
+    path('contato/',include('contato.urls')),
+    #area login/registrar/
+    #path('contas/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('sair',views.sair_site,name='sair'),
+
+    #procurar no site e filtros produtos
     path('search',views.search,name='search'),
+    path('filtro-dados',views.filtro_dados,name='filtro_dados'),
+    path('carregar-mais-dados',views.carregar_mais_dados,name='carregar_mais_dados'),
+    #produtos detalhes e categorias
     path('lista-categoria',views.lista_categoria,name='lista-categoria'),
     path('lista-marca',views.lista_marca,name='lista-marca'),
     path('lista-produtos',views.lista_produto,name='lista-produtos'),
     path('lista-produto-categoria/<int:cat_id>',views.lista_produto_categoria,name='lista-produto-categoria'),
     path('lista-produto-marca/<int:marca_id>',views.lista_produto_marca,name='lista-produto-marca'),
     path('produto/<str:slug>/<int:id>',views.detalhe_produto,name='detalhe_produto'),
-    path('filtro-dados',views.filtro_dados,name='filtro_dados'),
-    path('carregar-mais-dados',views.carregar_mais_dados,name='carregar_mais_dados'),
+    
+    
     path('adicionar-carrinho',views.carrinho_add,name='carrinho_add'),
     path('carrinho',views.lista_carrinho,name='carrinho'),
     path('deletar-item-carrinho',views.deletar_carrinho_item,name='deletar-item-carrinho'),
