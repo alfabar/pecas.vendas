@@ -6,7 +6,8 @@ from django.db.models import Max, Min, Count, Avg
 from django.db.models.functions import ExtractMonth
 from django.template.loader import render_to_string
 from .forms import SignupForm, ReviewAdd, FormListaEndereco, ProfileForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
+
 from django.contrib.auth.decorators import login_required
 from pycep_correios import get_address_from_cep, WebService, exceptions
 from selenium import webdriver
@@ -448,3 +449,7 @@ def atualizar_endereco(request, id):
             msg = 'Os dados foram salvos'
     form = FormListaEndereco(instance=endereco)
     return render(request, 'user/atualizar-endereco.html', {'form': form,'msg': msg})
+
+def sair_site(request):
+    logout(request)
+    return render(request, 'index.html')
