@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="{% static 'css/ui-elements/card.css' %}">
     <link rel="stylesheet" href="{% static 'css/shop.css' %}">
 
-    <!-- Chat boot -->
 </head>
 
 <body id="home-p">
@@ -36,155 +35,9 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <!--====================================================HEADER===================================================-->
-    <header>
-        <div class="view-mobile">
 
+    {% include 'header.html' %}
 
-            <div class="nav-scroller bg-body shadow-sm">
-                <nav class="nav nav-underline" aria-label="Secondary navigation">
-                    <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
-                    <a class="nav-link" href="#">
-            Friends
-            <span class="badge bg-light text-dark rounded-pill align-text-bottom">27</span>
-          </a>
-                    <a class="nav-link" href="#">Explore</a>
-                    <a class="nav-link" href="#">Suggestions</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link" href="#">Link</a>
-                </nav>
-            </div>
-        </div>
-
-        <!-- Comeco View Desktop -->
-        <div class="view-desktop">
-            <!-- Top Navbar  -->
-            <div class="top-menubar">
-                <div class="topmenu">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <ul class="list-inline top-contacts">
-                                    <li>
-                                        <i class="fa fa-envelope"></i> Email: <a href="mailto:contato@pecascar.com.br"><b>contato@pecascar.com.br</b></a>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-phone"></i> Contato: <b>(+55) 111 222 33</b>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-5">
-                                <ul class="list-inline top-data">
-                                    <li><a href="#" target="_empty"><i class="fa top-social fa fa-facebook-official"
-                                            aria-hidden="true"></i></a></li>
-                                    <li><a href="#" target="_empty"><i class="fa top-social fa fa-instagram"></i></a></li>
-                                    <li><a href="#" target="_empty"><i class="fa top-social fa fa-whatsapp"></i></a></li>
-                                    <li><a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Contato</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light" id="mainNav" data-toggle="affix">
-                <div class="container">
-                    <a class="navbar-brand smooth-scroll" href="/">
-                        <img src="{% static 'img/logo-s.png' %}" alt="logo">
-                    </a>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="/">Home</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'lista-categoria' %}">Categorias</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'lista-marca' %}">Marcas</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle smooth-scroll" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Empresa</a>
-                                <div class="dropdown-menu dropdown-cust" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="sobre-nos">Sobre nós</a>
-                                    <a class="dropdown-item" href="projetos">Projeto</a>
-                                    <a class="dropdown-item" href="carreiras">Carreira</a>
-                                    <a class="dropdown-item" href="perguntas">Perguntas frequentes</a>
-                                    <a class="dropdown-item" href="contato">Contate-Nos</a>
-                                </div>
-                            </li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="{% url 'carrinho' %}"><i
-                                    class="fa fa-shopping-cart"></i> Carrinho (<span
-                                    class="cart-list">{{request.session.cartdata|length}}</span>)</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle smooth-scroll" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Minha Conta </a>
-                                <div class="dropdown-menu dropdown-cust mega-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            {% if user.is_authenticated %}
-                                            <a class="dropdown-item {% if request.path == '/meu-painel' %}active {% endif %}" href="meu-painel">Painel</a>
-                                            <a class="dropdown-item {% if request.path == '/minha_lista_desejo' %}active {% endif %}" href="minha_lista_desejo">Favoritos</a>
-                                            <a class="dropdown-item {% if request.path == '/promocoes' %}active {% endif %}" href="promocoes">Promoções</a>
-                                            <a class="dropdown-item {% if request.path == '/editar-perfil' %}active {% endif %}" href="{% url 'meu-painel' %}">Painel</a>
-                                            <a class="dropdown-item" href="{% url 'account_logout' %}">Sair</a> {% else %}
-                                            <a class="dropdown-item" href="{% url 'account_login' %}">Entrar</a>
-                                            <a class="dropdown-item" href="{% url 'inscrever-se' %}">Cadastrar</a> {% endif %}
-                                        </div>
-                                        <div class="col-md-7 mega-menu-img m-auto text-center pl-0">
-                                            <a href="#"><img src="{% static 'img/offer_icon.png' %}" alt="" class="img-fluid"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="search fa fa-search search-btn"></i>
-                                <div class="search-open">
-                                    <form action="/search">
-                                        <div class="input-group animated fadeInUp">
-                                            <input name="q" type="text" class="form-control" placeholder="Procurar" aria-describedby="basic-addon2">
-                                            <button class="input-group-addon" id="basic-addon2">Go</button>
-                                    </form>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="top-menubar-nav">
-                                    <div class="topmenu ">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <ul class="list-inline top-contacts">
-                                                        <li>
-                                                            <i class="fa fa-envelope"></i> Email: <a href="mailto:info@htmlstream.com">info@htmlstream.com</a>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fa fa-phone"></i> Hotline: (1) 396 4587 99
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <ul class="list-inline top-data">
-                                                        <li><a href="#" target="_empty"><i
-                                                        class="fa top-social fa fa-facebook-official"></i></a></li>
-                                                        <li><a href="#" target="_empty"><i
-                                                        class="fa top-social fa fa-instagram"></i></a></li>
-                                                        <li><a href="#" target="_empty"><i
-                                                        class="fa top-social fa fa-whatsapp"></i></a></li>
-                                                        <li><a href="#" class="log-top" data-toggle="modal" data-target="#login-modal">Contato</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        <!-- Fim menu View desktop -->
-    </header>
     <!--==================================================== CONTATO TOPO CHATBOT =====================================================-->
     <section id="login">
         <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
