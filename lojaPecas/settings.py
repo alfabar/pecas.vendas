@@ -39,17 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'paypal.standard.ipn',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
     'contato',
     'pagamentos',
     'main',
     'appgoogle'
 ]
+
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
@@ -63,6 +66,16 @@ SOCIALACCOUNT_PROVIDERS = {
             'client_id': '685119274725-v0mas78slecj8npms56m2rd5di4b67gb.apps.googleusercontent.com',
             'secret': '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',
             'key': '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'
+        }
+    },
+     'facebook': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '1152800462231382',
+            'secret': 'e414995201825fea33386274ac919881',
+            'key': 'e414995201825fea33386274ac919881'
         }
     }
 }
