@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'contato',
+    'pagamentos',
+    'main',
     'django_extensions',
     'paypal.standard.ipn',
     'django.contrib.sites',
@@ -46,10 +49,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
-    'contato',
-    'pagamentos',
-    'main',
+    'allauth.socialaccount.providers.facebook',    
     'appgoogle'
 ]
 
