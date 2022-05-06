@@ -5,7 +5,7 @@
     <h3 class="my-4 border-bottom pb-1">Conecte-se</h3>
     <table class="table table-bordered">
         <form method="post">
-            {% csrf_token %} {{form.as_table}}
+            {% csrf_token %} {{form.as_p}}
             <tr>
                 <td colspan="2">
                     <input type="submit" value="Login" class="btn btn-general btn-white text-center" />
@@ -13,8 +13,8 @@
             </tr>
         </form>
     </table>
-    <p><a href="{% url 'password_reset' %}" class="text-danger">Redefinir senha?</a></p>
-    <p>Se você não é registrado, por favor <a href="{% url 'inscrever-se' %}">Inscrever-se aqui</a>.</p>
+    <p><a href="" class="text-danger">Redefinir senha?</a></p>
+    <p>Se você não é registrado, por favor <a href="">Inscrever-se aqui</a>.</p>
 
 </main>
 {% endblock %}
