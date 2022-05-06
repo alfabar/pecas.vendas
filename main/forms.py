@@ -27,7 +27,7 @@ class SignupForm(UserCreationForm):
 
 class EntrarFormulario(LoginForm):
     class Meta:
-        model = UserForm
+        model = LoginForm
         fields = ('username', 'password1')
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
