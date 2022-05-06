@@ -4,13 +4,16 @@ from django.contrib.auth import views as auth_views
 
 from django.conf import settings
 from django.conf.urls.static import static
+from allauth.account.views import LoginView
 
 urlpatterns=[ 
     #partes comun 
     path('',views.home,name='home'), 
     path('contato/',include('contato.urls')),
+    
     #area login/registrar/
-    #path('contas/', include('allauth.urls')),
+    path('contas/entrar', LoginView.as_view(),name='account_login'),
+    path('contas/inscricao',views.inscrever_se,name='inscrever-se'),
     path('accounts/', include('allauth.urls')),
     path('sair',views.sair_site,name='sair'),
 
@@ -18,6 +21,7 @@ urlpatterns=[
     path('search',views.search,name='search'),
     path('filtro-dados',views.filtro_dados,name='filtro_dados'),
     path('carregar-mais-dados',views.carregar_mais_dados,name='carregar_mais_dados'),
+    
     #produtos detalhes e categorias
     path('lista-categoria',views.lista_categoria,name='lista-categoria'),
     path('lista-marca',views.lista_marca,name='lista-marca'),
@@ -31,7 +35,6 @@ urlpatterns=[
     path('carrinho',views.lista_carrinho,name='carrinho'),
     path('deletar-item-carrinho',views.deletar_carrinho_item,name='deletar-item-carrinho'),
     path('atualizar-carrinho',views.atualizar_item_carrinho,name='atualizar-carrinho'),
-    path('contas/inscricao',views.inscrever_se,name='inscrever-se'),
     path('checkout',views.checkout,name='checkout'),
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('pagaento-efetuado/', views.pagaento_efetuado, name='pagaento-efetuado'), 
