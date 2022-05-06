@@ -5,7 +5,7 @@ from .models import Banner, Promocao, Categoria, Marca, Produto, ProdutoAtributo
 from django.db.models import Max, Min, Count, Avg
 from django.db.models.functions import ExtractMonth
 from django.template.loader import render_to_string
-from .forms import SignupForm, ReviewAdd, FormListaEndereco, ProfileForm
+from .forms import SignupForm, ReviewAdd, FormListaEndereco, ProfileForm, EntrarFormulario
 from django.contrib.auth import login, authenticate, logout
 
 from django.contrib.auth.decorators import login_required
@@ -223,7 +223,7 @@ def atualizar_item_carrinho(request):
 
 # Formulário de inscrição
 
-
+#entrar se inscreva
 def inscrever_se(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -237,6 +237,12 @@ def inscrever_se(request):
     form = SignupForm
     return render(request, 'registration/registrar.html', {'form': form})
 
+
+#entrar logar formulario de login
+def entrar_login(request):
+   
+    form = EntrarFormulario
+    return render(request, 'registration/login.html', {'form': form})
 
 # Caixa
 @login_required
