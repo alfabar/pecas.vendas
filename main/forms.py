@@ -1,9 +1,13 @@
 from cProfile import label
+from pyexpat import model
+from attr import fields
 from django import forms
 from django.forms import TextInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import ProdutoFeedback, UserEnderecoLista
+from allauth.account.forms import LoginForm, UserForm
+from allauth.account.views import SignupForm
 
 
 class SignupForm(UserCreationForm):
@@ -19,8 +23,16 @@ class SignupForm(UserCreationForm):
 			'password2': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
       }
 
-# Review Add Form
+# Formulario entrar 
 
+class EntrarFormulario(LoginForm):
+    class Meta:
+        model = UserForm
+        fields = ('username', 'password1')
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
+			'password1': forms.TextInput(attrs={'class': 'form-control', 'placeholder': ''},),
+   }
 
 class ReviewAdd(forms.ModelForm):
 	class Meta:
