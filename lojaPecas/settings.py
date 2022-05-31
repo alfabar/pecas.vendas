@@ -183,10 +183,7 @@ USE_TZ = True
 STATIC_ROOT = "/var/www/frango-mais.herokuapp.com/static/"
 STATIC_URL = 'static/'
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
