@@ -80,6 +80,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+ACCOUNT_FORMS = {'signup': 'lojaPecas.forms.MyCustomSignupForm'}
 
 
 

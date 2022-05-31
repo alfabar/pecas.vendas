@@ -6,8 +6,7 @@ from django.forms import TextInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import ProdutoFeedback, UserEnderecoLista
-from allauth.account.forms import LoginForm, UserForm
-from allauth.account.views import SignupForm
+from allauth.account.forms import LoginForm, UserForm, SignupForm
 
 
 class SignupForm(UserCreationForm):

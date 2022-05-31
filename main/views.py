@@ -145,8 +145,7 @@ def carregar_mais_dados(request):
     limit = int(request.GET['limit'])
     data = Produto.objects.all().order_by('-id')[offset:offset+limit]
     t = render_to_string('ajax/lista-produtos.html', {'data': data})
-    return JsonResponse({'data': t}
-                        )
+    return JsonResponse({'data': t})
 
 # Adicione ao carrinho
 
