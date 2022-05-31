@@ -47,9 +47,9 @@ def lista_marca(request):
 def lista_produto(request):
     total_data = Produto.objects.count()
     data = Produto.objects.all().order_by('-id')[:3]
-    min_price = ProdutoAtributo.objects.aggregate(Min('price'))
-    max_price = ProdutoAtributo.objects.aggregate(Max('price'))
-    return render(request, 'lista-produto.html', {'data': data, 'total_data': total_data, 'min_price': min_price, 'max_price': max_price, })
+    min_preco = ProdutoAtributo.objects.aggregate(Min('preco'))
+    max_preco = ProdutoAtributo.objects.aggregate(Max('preco'))
+    return render(request, 'lista-produto.html', {'data': data, 'total_data': total_data, 'min_preco': min_preco, 'max_preco': max_preco, })
 
 # Lista de produtos de acordo com a categoria
 
@@ -65,21 +65,16 @@ def lista_produto_categoria(request, cat_id):
 def lista_produto_marca(request, marca_id):
     marca = Marca.objects.get(id=marca_id)
     data = Produto.objects.filter(marca=marca).order_by('-id')
-    return render(request, 'lista-produto-categoria.html', {
-        'data': data,
-    })
+    return render(request, 'lista-produto-categoria.html', {'data': data,})
 
 
 @login_required
 # Detalhe do produto
 def detalhe_produto(request, slug, id):
     produto = Produto.objects.get(id=id)
-    related_products = Produto.objects.filter(
-        categoria=produto.categoria).exclude(id=id)[:4]
-    colors = ProdutoAtributo.objects.filter(produto=produto).values(
-        'color__id', 'color__title', 'color__color_code').distinct()
-    sizes = ProdutoAtributo.objects.filter(produto=produto).values(
-        'size__id', 'size__title', 'price', 'color__id').distinct()
+    produtos_relacionado = Produto.objects.filter(categoria=produto.categoria).exclude(id=id)[:4]
+    cores = ProdutoAtributo.objects.filter(produto=produto).values('cor__id', 'cor__titulo', 'cor__cor_code').distinct()
+    tamanhos = ProdutoAtributo.objects.filter(produto=produto).values('tamanho__id', 'tamanho__titulo', 'preco', 'cor__id').distinct()
     reviewForm = ReviewAdd()
 
     # Verificar
@@ -100,7 +95,7 @@ def detalhe_produto(request, slug, id):
         produto=produto).aggregate(avg_rating=Avg('review_rating'))
     # End
 
-    return render(request, 'detalhes-produtos.html', {'data': produto, 'related': related_products, 'colors': colors, 'sizes': sizes, 'reviewForm': reviewForm, 'canAdd': canAdd, 'reviews': reviews, 'avg_reviews': avg_reviews})
+    return render(request, 'detalhes-produtos.html', {'data': produto, 'related': produtos_relacionado, 'cores': cores, 'tamanhos': tamanhos, 'reviewForm': reviewForm, 'canAdd': canAdd, 'reviews': reviews, 'avg_reviews': avg_reviews})
 
 # Procurar
 
@@ -114,27 +109,27 @@ def search(request):
 
 
 def filtro_dados(request):
-    colors = request.GET.getlist('color[]')
-    categories = request.GET.getlist('categoria[]')
+    cores = request.GET.getlist('cor[]')
+    categorias = request.GET.getlist('categoria[]')
     marcas = request.GET.getlist('marca[]')
-    sizes = request.GET.getlist('size[]')
-    minPrice = request.GET['minPrice']
-    maxPrice = request.GET['maxPrice']
-    allProducts = Produto.objects.all().order_by('-id').distinct()
-    allProducts = allProducts.filter(ProdutoAtributo__price__gte=minPrice)
-    allProducts = allProducts.filter(ProdutoAtributo__price__lte=maxPrice)
-    if len(colors) > 0:
-        allProducts = allProducts.filter(
-            ProdutoAtributo__color__id__in=colors).distinct()
-    if len(categories) > 0:
-        allProducts = allProducts.filter(
-            categoria__id__in=categories).distinct()
+    tamanhos = request.GET.getlist('tamanho[]')
+    precoMin = request.GET['precoMin']
+    precoMax = request.GET['precoMax']
+    todosProdutos = Produto.objects.all().order_by('-id').distinct()
+    todosProdutos = todosProdutos.filter(ProdutoAtributo__preco__gte=precoMin)
+    todosProdutos = todosProdutos.filter(ProdutoAtributo__preco__lte=precoMax)
+    if len(cores) > 0:
+        todosProdutos = todosProdutos.filter(
+            ProdutoAtributo__cor__id__in=cores).distinct()
+    if len(categorias) > 0:
+        todosProdutos = todosProdutos.filter(
+            categoria__id__in=categorias).distinct()
     if len(marcas) > 0:
-        allProducts = allProducts.filter(marca__id__in=marcas).distinct()
-    if len(sizes) > 0:
-        allProducts = allProducts.filter(
-            ProdutoAtributo__size__id__in=sizes).distinct()
-    t = render_to_string('ajax/lista-produtos.html', {'data': allProducts})
+        todosProdutos = todosProdutos.filter(marca__id__in=marcas).distinct()
+    if len(tamanhos) > 0:
+        todosProdutos = todosProdutos.filter(
+            ProdutoAtributo__tamanho__id__in=tamanhos).distinct()
+    t = render_to_string('ajax/lista-produtos.html', {'data': todosProdutos})
     return JsonResponse({'data': t})
 
 # Carregar mais
@@ -145,46 +140,45 @@ def carregar_mais_dados(request):
     limit = int(request.GET['limit'])
     data = Produto.objects.all().order_by('-id')[offset:offset+limit]
     t = render_to_string('ajax/lista-produtos.html', {'data': data})
-    return JsonResponse({'data': t})
+    return JsonResponse({'data':t})
 
 # Adicione ao carrinho
 
 
 def carrinho_add(request):
-    # del request.session['cartdata']
-    cart_p = {}
-    cart_p[str(request.GET['id'])] = {
+    carrinho_p = {}
+    carrinho_p[str(request.GET['id'])] = {
         'imagem': request.GET['image'],
-        'title': request.GET['title'],
+        'titulo': request.GET['titulo'],
         'qty': request.GET['qty'],
-        'price': request.GET['price'],
+        'preco': request.GET['preco'],
     }
     if 'cartdata' in request.session:
         if str(request.GET['id']) in request.session['cartdata']:
             cart_data = request.session['cartdata']
             cart_data[str(request.GET['id'])]['qty'] = int(
-                cart_p[str(request.GET['id'])]['qty'])
+                carrinho_p[str(request.GET['id'])]['qty'])
             cart_data.update(cart_data)
             request.session['cartdata'] = cart_data
         else:
             cart_data = request.session['cartdata']
-            cart_data.update(cart_p)
+            cart_data.update(carrinho_p)
             request.session['cartdata'] = cart_data
     else:
-        request.session['cartdata'] = cart_p
+        request.session['cartdata'] = carrinho_p
     return JsonResponse({'data': request.session['cartdata'], 'totalitems': len(request.session['cartdata'])})
 
 # Página da lista de carrinhos
 
 
 def lista_carrinho(request):
-    total_amt = 0
+    pedido_total = 0
     if 'cartdata' in request.session:
         for p_id, item in request.session['cartdata'].items():
-            total_amt += int(item['qty'])*float(item['price'])
-        return render(request, 'carrinho.html', {'cart_data': request.session['cartdata'], 'totalitems': len(request.session['cartdata']), 'total_amt': total_amt})
+            pedido_total += int(item['qty'])*float(item['preco'])
+        return render(request, 'carrinho.html', {'cart_data': request.session['cartdata'], 'totalitems': len(request.session['cartdata']), 'pedido_total': pedido_total})
     else:
-        return render(request, 'carrinho.html', {'cart_data': '', 'totalitems': 0, 'total_amt': total_amt})
+        return render(request, 'carrinho.html', {'cart_data': '', 'totalitems': 0, 'pedido_total': pedido_total})
 
 
 # Excluir item do carrinho
@@ -195,11 +189,11 @@ def deletar_carrinho_item(request):
             cart_data = request.session['cartdata']
             del request.session['cartdata'][p_id]
             request.session['cartdata'] = cart_data
-    total_amt = 0
+    pedido_total = 0
     for p_id, item in request.session['cartdata'].items():
-        total_amt += int(item['qty'])*float(item['price'])
+        pedido_total += int(item['qty'])*float(item['preco'])
     t = render_to_string('ajax/lista-carrinho.html', {'cart_data': request.session['cartdata'], 'totalitems': len(
-        request.session['cartdata']), 'total_amt': total_amt})
+        request.session['cartdata']), 'pedido_total': pedido_total})
     return JsonResponse({'data': t, 'totalitems': len(request.session['cartdata'])})
 
 # Excluir item do carrinho
@@ -213,11 +207,11 @@ def atualizar_item_carrinho(request):
             cart_data = request.session['cartdata']
             cart_data[str(request.GET['id'])]['qty'] = p_qty
             request.session['cartdata'] = cart_data
-    total_amt = 0
+    pedido_total = 0
     for p_id, item in request.session['cartdata'].items():
-        total_amt += int(item['qty'])*float(item['price'])
+        pedido_total += int(item['qty'])*float(item['preco'])
     t = render_to_string('ajax/lista-carrinho.html', {'cart_data': request.session['cartdata'], 'totalitems': len(
-        request.session['cartdata']), 'total_amt': total_amt})
+        request.session['cartdata']), 'pedido_total': pedido_total})
     return JsonResponse({'data': t, 'totalitems': len(request.session['cartdata'])})
 
 # Formulário de inscrição
@@ -246,37 +240,37 @@ def entrar_login(request):
 # Caixa
 @login_required
 def checkout(request):
-    total_amt = 0
-    totalAmt = 0
+    pedido_total = 0
+    totalPedido = 0
     if 'cartdata' in request.session:
         for p_id, item in request.session['cartdata'].items():
-            totalAmt += int(item['qty'])*float(item['price'])
+            totalPedido += int(item['qty'])*float(item['preco'])
         # Ordem
         order = CarrinhoPedido.objects.create(
             user=request.user,
-            total_amt=totalAmt
+            pedido_total=totalPedido
         )
         # Fim
         for p_id, item in request.session['cartdata'].items():
-            total_amt += int(item['qty'])*float(item['price'])
+            pedido_total += int(item['qty'])*float(item['preco'])
             # Itens de pedidos
             items = CarrinhoPedidoItems.objects.create(
                 order=order,
-                invoice_no='INV-'+str(order.id),
-                item=item['title'],
+                invoice_no='PEDIDO Nº-'+str(order.id),
+                item=item['titulo'],
                 image=item['imagem'],
                 qty=item['qty'],
-                price=item['price'],
-                total=float(item['qty'])*float(item['price'])
+                preco=item['preco'],
+                total=float(item['qty'])*float(item['preco'])
             )
             # End
         # Pagamento de processos
         host = request.get_host()
         paypal_dict = {
             'business': settings.PAYPAL_RECEIVER_EMAIL,
-            'amount': total_amt,
+            'amount': pedido_total,
             'item_name': 'OrderNo-'+str(order.id),
-            'invoice': 'INV-'+str(order.id),
+            'invoice': 'PEDIDO Nº-'+str(order.id),
             'currency_code': 'BRL',
             'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
             'return_url': 'http://{}{}'.format(host, reverse('pagaento-efetuado')),
@@ -285,7 +279,7 @@ def checkout(request):
         form = PayPalPaymentsForm(initial=paypal_dict)
         endereco = UserEnderecoLista.objects.filter(
             user=request.user, status=True).first()
-        return render(request, 'checkout.html', {'cart_data': request.session['cartdata'], 'totalitems': len(request.session['cartdata']), 'total_amt': total_amt, 'form': form, 'endereco': endereco})
+        return render(request, 'checkout.html', {'cart_data': request.session['cartdata'], 'totalitems': len(request.session['cartdata']), 'pedido_total': pedido_total, 'form': form, 'endereco': endereco})
 
 
 @csrf_exempt

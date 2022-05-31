@@ -9,7 +9,7 @@ from .models import ProdutoFeedback, UserEnderecoLista
 from allauth.account.forms import LoginForm, UserForm, SignupForm
 
 
-class SignupForm(UserCreationForm):
+class SignupForm(SignupForm):
 	class Meta:
 		model = User
 		fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
