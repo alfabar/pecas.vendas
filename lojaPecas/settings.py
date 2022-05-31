@@ -50,7 +50,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',    
-    'appgoogle'
+    'appgoogle',
+    'whitenoise.runserver_nostatic',   # new 
+    'django.contrib.staticfiles'
 ]
 
 
@@ -180,13 +182,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = "/var/www/frango-mais.herokuapp.com/static/"
-STATIC_URL = 'static/'
+STATIC_URL  =  "/static/" 
+STATICFILES_DIRS  =  [ BASE_DIR  /  "static" ]   
+STATIC_ROOT  =  STATIC_ROOT  =  BASE_DIR  /  "staticfiles" 
+STATICFILES_STORAGE  =  'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL='home'
 LOGOUT_REDIRECT_URL='login'
