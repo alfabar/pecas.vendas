@@ -1,5 +1,16 @@
 {% extends "account/base.html" %} {% load i18n %} {% load account socialaccount %} {% block head_title %}{% trans "Sign In" %}{% endblock %} {% block conteudo %}
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+    // Load jquery straight from the cdn for this page.
+    $(function() {
+        // We need some mappings for Providers names from AllAuth to the icon class names.
+        $('.btn-google').addClass('btn-google-plus');
+        $('.btn-linkedin_oauth2').addClass('btn-linkedin');
+        $('.fa-linkedin_oauth2').addClass('fa-linkedin');
+        $('#id_login').addClass('form-control').removeAttr('autofocus').blur();
+        $('#id_password').addClass('form-control');
+    });
+</script>
 <h1>{% trans "Sign In" %}</h1>
 
 {% get_providers as socialaccount_providers %} {% if socialaccount_providers %} {% include "socialaccount/snippets/login_extra.html" %} {% else %}
@@ -18,7 +29,7 @@
 
     <div class="socialaccount_ballot ">
 
-        <ul class="socialaccount_providers">
+        <ul class="socialaccount_providers" style="list-style: none;">
             {% include "socialaccount/snippets/provider_list.html" with process="login" %}
         </ul>
 
