@@ -1,4 +1,4 @@
-{% load static %}{% load account socialaccount %}
+{% load static %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -6,29 +6,7 @@
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html lang="pt-br">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Peças Car </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Dosis:400,500,700" rel="stylesheet" type="text/css">
-    <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/animate/animate.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl-carousel/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl-carousel/owl.theme.default.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navbare.css' %}" id="theme-stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/icones.css' %}">
-    <!-- Core Stylesheets -->
-    <link rel="stylesheet" href="{% static 'css/ui-elements/card.css' %}">
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}">
-
-</head>
+{% include 'cabecalho.html' %}
 
 <body id="home-p">
     <!--[if lt IE 7]>
@@ -54,117 +32,9 @@
         </div>
     </section>
 
-    {% block content %} {% endblock %}
+    {% block content %} {% endblock content %}
     <!--==================================================== FOOTER ======================================================-->
-    <footer>
-        <div id="footer-s1" class="footer-s1">
-            <div class="footer">
-                <div class="container">
-                    <div class="row">
-                        <!-- About Us -->
-                        <div class="col-md-3 col-sm-6 ">
-                            <div><img src="{% static 'img/logo-w.png' %}" alt="" class="img-fluid"></div>
-                            <ul class="list-unstyled comp-desc-f">
-                                <li>
-                                    <p> Peças Car é um mercado abrangente para peças de carros usados com uma rede nacional de instalações. Oferecemos uma grande seleção de peças de alta qualidade a preços competitivos no mercado</p>
-                                </li>
-                            </ul><br>
-                        </div>
-                        <!-- End About Us -->
-                        <!-- Recent News -->
-                        <div class="col-md-3 col-sm-6 ">
-                            <div class="heading-footer">
-                                <h2>Empresa</h2>
-                            </div>
-                            <ul class="list-unstyled link-list">
-                                <li><a href="about.html">Sobre nós</a><i class="fa fa-angle-right"></i></li>
-                                <li><a href="project.html">Projeto</a><i class="fa fa-angle-right"></i></li>
-                                <li><a href="careers.html">Carreira</a><i class="fa fa-angle-right"></i></li>
-                                <li><a href="faq.html">Perguntas frequentes</a><i class="fa fa-angle-right"></i></li>
-                                <li><a href="">Contate-Nos</a><i class="fa fa-angle-right"></i></li>
-                            </ul>
-                        </div>
-                        <!-- End Recent list -->
-                        <!-- Recent Blog Entries -->
-                        <div class="col-md-3 col-sm-6 ">
-                            <div class="heading-footer">
-                                <h2>Postagens recentes</h2>
-                            </div>
-                            <ul class="list-unstyled thumb-list">
-                                <li>
-                                    <div class="overflow-h">
-                                        <a href="#">É como a câmera principal.</a>
-                                        <small>02 de outubro de 2020</small>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="overflow-h">
-                                        <a href="#">Você pode personalizar o que quiser</a>
-                                        <small>02 de outubro de 2020</small>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- End Recent Blog Entries -->
-                        <!-- Latest Tweets -->
-                        <div class="col-md-3 col-sm-6">
-                            <div class="heading-footer">
-                                <h2>Entrar em contato</h2>
-                            </div>
-                            <address class="address-details-f">
-                                25, Rua das flores, contagem <br>
-                                Minas Gerais, BR <br>
-                                Telefone: 800 123 3456 <br>
-                                Fax: 800 123 3456 <br>
-                                Email: <a href="mailto:contato@pecascar.com.br" class="">contato@pecascar.com.br</a>
-                            </address>
-                            <ul class="list-inline social-icon-f top-data">
-                                <li><a href="#" target="_empty"><i
-                                            class="fa top-social fa fa-facebook-official"></i></a></li>
-                                <li><a href="#" target="_empty"><i class="fa top-social fa fa-instagram"></i></a></li>
-                                <li><a href="#" target="_empty"><i class="fa top-social fa fa-whatsapp"></i></a></li>
-                            </ul>
-                        </div>
-                        <!-- End Latest Tweets -->
-                    </div>
-                </div>
-                <!--/container -->
-            </div>
-        </div>
-        <div id="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="footer-copyrights">
-                            <p>Copyrights &copy; 2021 <a href="/">Peças Car</a> Todos os Direitos Reservados. <a href="#">Política de Privacidade </a> <a href="#">Termos dos Serviços</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a href="#home-p" id="back-to-top" class="btn btn-sm btn-green btn-back-to-top smooth-scrolls hidden-sm hidden-xs" title="home" role="button"><i class="fa fa-angle-up"></i></a>
-    </footer>
-    <!--Global JavaScript -->
-    <script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
-    <script src="{% static 'js/popper/popper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/wow/wow.min.js' %}"></script>
-    <script src="{% static 'js/owl-carousel/owl.carousel.min.js' %}"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="{% static 'js/jquery-easing/jquery.easing.min.js' %}"></script>
-    <script src="{% static 'js/custon.js' %}"></script>
-    <script type="text/javascript" src="{% static 'product-filter.js' %}"></script>
-
-    <script type="text/javascript" src="{% static 'jquery-1.12.3.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dist/autosize.min.js' %}"></script>
-
-    <!-- Add step #2 -->
-    <!--   <script src="https://sdk.mercadopago.com/js/v2"></script>
-    <script>
-        const mp = new MercadoPago('TEST-a900e669-330d-409b-bb09-0b3ca35060a0');
-        // Add step #3
-    </script> -->
+    {% include 'footer.html' %} {% include 'scripts.html' %} {% block extra_scripts %} {% endblock extra_scripts %}
 
 
 
