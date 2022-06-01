@@ -516,6 +516,18 @@ header .topmenu .top-data li a.log-top:hover {
     text-transform: uppercase;
 }
 
+.btn-google {
+    border-color: #f32121;
+    background-color: #f32121;
+    color: #fff;
+}
+
+.btn-facebook {
+    border-color: #2196f3;
+    background-color: #2196f3;
+    color: #fff;
+}
+
 .btn-white {
     border-color: #2196f3;
     background-color: #2196f3;
@@ -553,6 +565,9 @@ header .topmenu .top-data li a.log-top:hover {
     color: #fff;
     cursor: pointer;
 }
+
+
+/* edição da lista */
 
 
 /*====================================================
