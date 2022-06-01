@@ -1,21 +1,24 @@
-{% extends "account/base.html" %}
+{% extends "account/base.html" %} {% load i18n %} {% block head_title %}{% trans "Signup" %}{% endblock %} {% block content %}
 
-{% load i18n %}
+<div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+            <!-- <h5 class="modal-title">Modal title</h5> -->
+        </div>
 
-{% block content %}
-<h1>{% trans "Sign Up" %}</h1>
+        <div class="modal-body p-5 pt-0">
+            <h1>{% trans "Sign Up" %}</h1>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+            <p>{% blocktrans %}Já tem uma conta? Então por favor <a href="{{ login_url }}">Entre</a>.{% endblocktrans %}</p>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
+            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %} {{ form.as_p }} {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" /> {% endif %}
+                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary mt-3" type="submit">{% trans "Sign Up" %} &raquo;</button>
+            </form>
+        </div>
 
+    </div>
+</div>
 {% endblock %}
