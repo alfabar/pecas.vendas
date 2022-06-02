@@ -92,10 +92,10 @@ class Tamanhos(models.Model):
 # Modelo do Produto
 class Produto(models.Model):
     titulo=models.CharField(max_length=200)
-    imagem=models.ImageField(upload_to="product_imgs/",null=True)
-    imagem1=models.ImageField(upload_to="product_imgs/",null=True)
-    imagem2=models.ImageField(upload_to="product_imgs/",null=True)
-    imagem3=models.ImageField(upload_to="product_imgs/",null=True)
+    imagem=models.ImageField(upload_to="product_imgs/",null=True, blank=True, default="product_imgs/logonsozinho.jpg")
+    imagem1=models.ImageField(upload_to="product_imgs/",null=True, blank=True, default="product_imgs/logonsozinho.jpg")
+    imagem2=models.ImageField(upload_to="product_imgs/",null=True, blank=True, default="product_imgs/logonsozinho.jpg")
+    imagem3=models.ImageField(upload_to="product_imgs/",null=True, blank=True, default="product_imgs/logonsozinho.jpg")
     slug=models.CharField(max_length=400)
     cor=models.CharField(max_length=6)
     tamanho=models.CharField(max_length=6)
@@ -162,7 +162,7 @@ class CarrinhoPedido(models.Model):
 class CarrinhoPedidoItems(models.Model): 
     pedido=models.ForeignKey(CarrinhoPedido,on_delete=models.CASCADE)
     fatura_no=models.CharField(max_length=150)
-    item=models.ForeignKey(Produto, on_delete=models.CASCADE)
+    item=models.CharField(max_length=150)
     imagem=models.CharField(max_length=200)
     qty=models.IntegerField()
     preco=models.FloatField()
@@ -217,7 +217,6 @@ class UserEnderecoLista(models.Model):
     
 class Entregar(models.Model):
     pedido=models.ForeignKey(CarrinhoPedidoItems, on_delete=models.CASCADE)
-    cliente=models.ForeignKey(User, on_delete=models.CASCADE)    
-    
+    cliente=models.ForeignKey(User, on_delete=models.CASCADE) 
     class Meta:
-        verbose_name_plural='Entregar '
+        verbose_name_plural='Entregar'
