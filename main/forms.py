@@ -36,7 +36,7 @@ class EntrarFormulario(LoginForm):
 class ReviewAdd(forms.ModelForm):
 	class Meta:
 		model = ProdutoFeedback
-		fields = ('review_text', 'review_rating')
+		fields = ('texto_avaliacao', 'nota_avaliacao')
 
 # AddressBook Add Form
 
