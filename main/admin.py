@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Banner,Promocao,Categoria,Marca,Color,Size,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
+from .models import Banner,Promocao,Categoria,Marca,Cores,Tamanhos,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
 
 # admin.site.register(Banner)
 
-admin.site.register(Size)
+admin.site.register(Tamanhos)
 
 
 class BannerAdmin(admin.ModelAdmin):
@@ -20,9 +20,9 @@ admin.site.register(Categoria,CategoriaAdmin)
 class MarcaAdmin(admin.ModelAdmin):
 	list_display=('titulo','image_tag')
 admin.site.register(Marca,MarcaAdmin)
-class ColorAdmin(admin.ModelAdmin):
-	list_display=('title','color_bg')
-admin.site.register(Color,ColorAdmin)
+class CoresAdmin(admin.ModelAdmin):
+	list_display=('titulo','cor_bg')
+admin.site.register(Cores,CoresAdmin)
 
 class ProdutoAdmin(admin.ModelAdmin):
     list_display=('id','titulo','imagem_tag','imagem1_tag','imagem2_tag','imagem3_tag','categoria','marca','status','e_apresentado')
@@ -31,17 +31,17 @@ admin.site.register(Produto,ProdutoAdmin)
 
 # Product Attribute
 class ProdutoAtributoAdmin(admin.ModelAdmin):
-    list_display=('id','image_tag','produto','price','color','size')
+    list_display=('id','image_tag','produto','preco','cor','tamanho')
 admin.site.register(ProdutoAtributo,ProdutoAtributoAdmin)
 
 # Order
 class CarrinhoPedidoAdmin(admin.ModelAdmin):
-	list_editable=('paid_status','order_status')
-	list_display=('user','total_amt','paid_status','order_dt','order_status')
+	list_editable=('status_pago','pedido_status')
+	list_display=('user','total_amt','status_pago','pedido_dt','pedido_status')
 admin.site.register(CarrinhoPedido,CarrinhoPedidoAdmin)
 
 class CarrinhoPedidoItemsAdmin(admin.ModelAdmin):
-	list_display=('invoice_no','item','image_tag','qty','price','total')
+	list_display=('pedido','fatura_no','item','image_tag','qty','preco','total')
 admin.site.register(CarrinhoPedidoItems,CarrinhoPedidoItemsAdmin)
 
 
