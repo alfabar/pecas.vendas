@@ -246,7 +246,7 @@ def checkout(request):
         for p_id, item in request.session['cartdata'].items():
             totalPedido += int(item['qty'])*float(item['preco'])
         # Ordem
-        order = CarrinhoPedido.objects.create(
+        pedido = CarrinhoPedido.objects.create(
             user=request.user,
             pedido_total=totalPedido
         )
@@ -255,10 +255,10 @@ def checkout(request):
             pedido_total += int(item['qty'])*float(item['preco'])
             # Itens de pedidos
             items = CarrinhoPedidoItems.objects.create(
-                order=order,
-                invoice_no='PEDIDO Nº-'+str(order.id),
+                pedido=pedido,
+                fatura_no='PEDIDO Nº-'+str(pedido.id),
                 item=item['titulo'],
-                image=item['imagem'],
+                imagem=item['imagem'],
                 qty=item['qty'],
                 preco=item['preco'],
                 total=float(item['qty'])*float(item['preco'])
@@ -269,8 +269,8 @@ def checkout(request):
         paypal_dict = {
             'business': settings.PAYPAL_RECEIVER_EMAIL,
             'amount': pedido_total,
-            'item_name': 'OrderNo-'+str(order.id),
-            'invoice': 'PEDIDO Nº-'+str(order.id),
+            'item_name': 'OrderNo-'+str(pedido.id),
+            'invoice': 'PEDIDO Nº-'+str(pedido.id),
             'currency_code': 'BRL',
             'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
             'return_url': 'http://{}{}'.format(host, reverse('pagaento-efetuado')),
