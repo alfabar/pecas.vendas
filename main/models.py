@@ -149,7 +149,7 @@ status_escolha=(
     )
 class CarrinhoPedido(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)    
-    total_amt=models.FloatField()
+    pedido_total=models.FloatField()
     status_pago=models.BooleanField(default=False)
     pedido_dt=models.DateTimeField(auto_now_add=True)
     pedido_status=models.CharField(choices=status_escolha,default='Pedido Recebido',max_length=150)    
@@ -163,7 +163,7 @@ class CarrinhoPedidoItems(models.Model):
     pedido=models.ForeignKey(CarrinhoPedido,on_delete=models.CASCADE)
     fatura_no=models.CharField(max_length=150)
     item=models.CharField(max_length=150)
-    image=models.CharField(max_length=200)
+    imagem=models.CharField(max_length=200)
     qty=models.IntegerField()
     preco=models.FloatField()
     total=models.FloatField()
@@ -172,7 +172,7 @@ class CarrinhoPedidoItems(models.Model):
         verbose_name_plural='9. Items Pedidos '
 
     def image_tag(self):
-        return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
+        return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.imagem))
 
 # Avaliações dos Produtos
 AVALIACAO=(
@@ -185,14 +185,14 @@ AVALIACAO=(
 class ProdutoFeedback(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     produto=models.ForeignKey(Produto,on_delete=models.CASCADE)
-    review_text=models.TextField()
-    review_rating=models.CharField(choices=AVALIACAO,max_length=150)
+    texto_avaliacao=models.TextField()
+    nota_avaliacao=models.CharField(choices=AVALIACAO,max_length=150)
 
     class Meta:
         verbose_name_plural='Avaliações'
 
-    def get_review_rating(self):
-        return self.review_rating
+    def get_nota_avaliacao(self):
+        return self.nota_avaliacao
 
 # Lista Desejo
 class ListaDesejo(models.Model):
