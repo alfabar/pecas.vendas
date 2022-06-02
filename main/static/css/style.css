@@ -517,15 +517,42 @@ header .topmenu .top-data li a.log-top:hover {
 }
 
 .btn-google {
-    border-color: #f32121;
-    background-color: #f32121;
-    color: #fff;
+    display: inline-block;
+    background: white;
+    color: #444;
+    width: 190px;
+    border-radius: 5px;
+    border: thin solid #888;
+    box-shadow: 1px 1px 1px grey;
+    white-space: nowrap;
+}
+
+.icon-google {
+    height: 90vh;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url(../img/google-37.png);
+    display: block;
+}
+
+.btn-google:hover {
+    cursor: pointer;
 }
 
 .btn-facebook {
-    border-color: #2196f3;
-    background-color: #2196f3;
-    color: #fff;
+    display: inline-block;
+    background: #4267b2;
+    width: 190px;
+    color: white;
+    border-radius: 5px;
+    border: thin solid #888;
+    box-shadow: 1px 1px 1px grey;
+    white-space: nowrap;
+}
+
+.btn-facebook:hover {
+    cursor: pointer;
 }
 
 .btn-white {
@@ -988,7 +1015,7 @@ input[type=password] {
 
 .modal-content {
     /*background-color: #ececec;*/
-    border: 3px solid #2196f3;
+    border: 3px solid #ffffff;
     border-radius: 0px;
     outline: 0;
 }
