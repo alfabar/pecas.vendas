@@ -91,7 +91,7 @@
                                         <a class="dropdown-item {% if request.path == '/editar-perfil' %}active {% endif %}" href="{% url 'meu-painel' %}">Painel</a>
                                         <a class="dropdown-item" href="{% url 'sair' %}">Sair</a> {% else %}
                                         <a class="dropdown-item" href="{% url 'account_login' %}">Entrar</a>
-                                        <a class="dropdown-item" href="{% url 'inscrever-se' %}">Cadastrar</a> {% endif %}
+                                        <a class="dropdown-item" href="{% url 'account_signup' %}">Cadastrar</a> {% endif %}
                                     </div>
                                     <div class="col-md-7 mega-menu-img m-auto text-center pl-0">
                                         <a href="#"><img src="{% static 'img/offer_icon.png' %}" alt="" class="img-fluid"></a>
