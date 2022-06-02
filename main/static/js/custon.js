@@ -76,8 +76,8 @@ $(document).ready(function() {
         var _qty = $(".product-qty-" + _index).val();
         var _productId = $(".product-id-" + _index).val();
         var _productImage = $(".product-image-" + _index).val();
-        var _productTitle = $(".product-title-" + _index).val();
-        var _productPrice = $(".product-price-" + _index).text();
+        var _productTitle = $(".product-titulo-" + _index).val();
+        var _productPrice = $(".product-preco-" + _index).text();
         // Ajax
         $.ajax({
             url: '/adicionar-carrinho',
@@ -85,8 +85,8 @@ $(document).ready(function() {
                 'id': _productId,
                 'image': _productImage,
                 'qty': _qty,
-                'title': _productTitle,
-                'price': _productPrice
+                'titulo': _productTitle,
+                'preco': _productPrice
             },
             dataType: 'json',
             beforeSend: function() {
