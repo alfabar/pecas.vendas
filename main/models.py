@@ -65,28 +65,28 @@ class Marca(models.Model):
         return self.titulo
 
 # Cores
-class Color(models.Model):
-    title=models.CharField(max_length=100)
-    color_code=models.CharField(max_length=100)
+class Cores(models.Model):
+    titulo=models.CharField(max_length=100)
+    cor_code=models.CharField(max_length=100)
 
     class Meta:
         verbose_name_plural='4. Cores'
 
-    def color_bg(self):
-        return mark_safe('<div style="width:30px; height:30px; background-color:%s"></div>' % (self.color_code))
+    def cor_bg(self):
+        return mark_safe('<div style="width:30px; height:30px; background-color:%s"></div>' % (self.cor_code))
 
     def __str__(self):
-        return self.title
+        return self.titulo
 
 # Cidades
-class Size(models.Model):
-    title=models.CharField(max_length=100)
+class Tamanhos(models.Model):
+    titulo=models.CharField(max_length=100)
 
     class Meta:
         verbose_name_plural='5. Cidades' 
 
     def __str__(self):
-        return self.title
+        return self.titulo
 
 
 # Modelo do Produto
@@ -97,9 +97,9 @@ class Produto(models.Model):
     imagem2=models.ImageField(upload_to="product_imgs/",null=True)
     imagem3=models.ImageField(upload_to="product_imgs/",null=True)
     slug=models.CharField(max_length=400)
-    color=models.CharField(max_length=6)
-    size=models.CharField(max_length=6)
-    price=models.PositiveIntegerField(default=0)
+    cor=models.CharField(max_length=6)
+    tamanho=models.CharField(max_length=6)
+    preco=models.PositiveIntegerField(default=0)
     detalhes=models.TextField()
     especificacoes=models.TextField()
     categoria=models.ForeignKey(Categoria,on_delete=models.CASCADE)
@@ -127,9 +127,9 @@ class Produto(models.Model):
 # Atribuições do Produto
 class ProdutoAtributo(models.Model):
     produto=models.ForeignKey(Produto,on_delete=models.CASCADE)
-    color=models.ForeignKey(Color,on_delete=models.CASCADE)
-    size=models.ForeignKey(Size,on_delete=models.CASCADE)
-    price=models.PositiveIntegerField(default=0)
+    cor=models.ForeignKey(Cores,on_delete=models.CASCADE)
+    tamanho=models.ForeignKey(Tamanhos,on_delete=models.CASCADE)
+    preco=models.PositiveIntegerField(default=0)
     
 
     class Meta:
@@ -142,17 +142,17 @@ class ProdutoAtributo(models.Model):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
 
 # Pedido
-status_choice=(
-        ('processo','Processo'),
+status_escolha=(
+        ('pedido recebido','Pedido Recebido'),
         ('enviado','Enviado'),
         ('entregue','Entregue'),
     )
 class CarrinhoPedido(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)    
     total_amt=models.FloatField()
-    paid_status=models.BooleanField(default=False)
-    order_dt=models.DateTimeField(auto_now_add=True)
-    order_status=models.CharField(choices=status_choice,default='processo',max_length=150)    
+    status_pago=models.BooleanField(default=False)
+    pedido_dt=models.DateTimeField(auto_now_add=True)
+    pedido_status=models.CharField(choices=status_escolha,default='Pedido Recebido',max_length=150)    
 
     class Meta:
         verbose_name_plural='8. Pedidos'
@@ -160,12 +160,12 @@ class CarrinhoPedido(models.Model):
 
 # Pedido itens
 class CarrinhoPedidoItems(models.Model): 
-    order=models.ForeignKey(CarrinhoPedido,on_delete=models.CASCADE)
-    invoice_no=models.CharField(max_length=150)
+    pedido=models.ForeignKey(CarrinhoPedido,on_delete=models.CASCADE)
+    fatura_no=models.CharField(max_length=150)
     item=models.CharField(max_length=150)
     image=models.CharField(max_length=200)
     qty=models.IntegerField()
-    price=models.FloatField()
+    preco=models.FloatField()
     total=models.FloatField()
 
     class Meta:
@@ -175,7 +175,7 @@ class CarrinhoPedidoItems(models.Model):
         return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
 
 # Avaliações dos Produtos
-RATING=(
+AVALIACAO=(
     (1,'1'),
     (2,'2'),
     (3,'3'),
@@ -186,7 +186,7 @@ class ProdutoFeedback(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     produto=models.ForeignKey(Produto,on_delete=models.CASCADE)
     review_text=models.TextField()
-    review_rating=models.CharField(choices=RATING,max_length=150)
+    review_rating=models.CharField(choices=AVALIACAO,max_length=150)
 
     class Meta:
         verbose_name_plural='Avaliações'
