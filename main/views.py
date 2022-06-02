@@ -175,7 +175,7 @@ def lista_carrinho(request):
     pedido_total = 0
     if 'cartdata' in request.session:
         for p_id, item in request.session['cartdata'].items():
-            pedido_total += int(item['qty'])*float(item['preco'])
+            pedido_total += int(item['qty'])*float(item['price'])
         return render(request, 'carrinho.html', {'cart_data': request.session['cartdata'], 'totalitems': len(request.session['cartdata']), 'pedido_total': pedido_total})
     else:
         return render(request, 'carrinho.html', {'cart_data': '', 'totalitems': 0, 'pedido_total': pedido_total})
@@ -191,7 +191,7 @@ def deletar_carrinho_item(request):
             request.session['cartdata'] = cart_data
     pedido_total = 0
     for p_id, item in request.session['cartdata'].items():
-        pedido_total += int(item['qty'])*float(item['preco'])
+        pedido_total += int(item['qty'])*float(item['price'])
     t = render_to_string('ajax/lista-carrinho.html', {'cart_data': request.session['cartdata'], 'totalitems': len(
         request.session['cartdata']), 'pedido_total': pedido_total})
     return JsonResponse({'data': t, 'totalitems': len(request.session['cartdata'])})
@@ -321,7 +321,7 @@ def salvar_avaliacao(request, pid):
 
 
 def meu_painel(request):
-    orders = CarrinhoPedido.objects.annotate(month=ExtractMonth('order_dt')).values(
+    orders = CarrinhoPedido.objects.annotate(month=ExtractMonth('pedido_dt')).values(
         'month').annotate(count=Count('id')).values('month', 'count')
     monthNumber = []
     totalOrders = []
