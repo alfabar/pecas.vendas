@@ -30,15 +30,15 @@
                     </h6>
                 </div>
                 <p class="product-description">{{data.detalhes}}</p>
-                <h4>Preço atual:R$ <span class="price product-price-{{data.id}}"></span>{{data.price}}</h4>
+                <h4>Preço atual:R$ <span class="price product-price-{{data.id}}"></span>{{data.preco}}</h4>
                 <p class="vote"><strong>Tenha 10%</strong> ao se inscrever em nossa loja e preencher nosso cadastro <strong>(Obtenha já!!)</strong></p>
                 <h6 class="sizes">Cor:
-                    <span class="review-no"></span> {% for color in colors %}
-                    <button class="btn btn-lg" data-color="{{color.color__id}}" style="background-color:{{color.color__color_code}}"></button> {% endfor %}
+                    <span class="review-no"></span> {% for cor in cores %}
+                    <button class="btn btn-lg" data-color="{{cor.cor__id}}" style="background-color:{{cor.cor__cor_code}}"></button> {% endfor %}
                 </h6>
                 <h6 class="colors">Local Vendedor:
-                    <span class="review-no"></span> {% for size in sizes %}
-                    <button data-price="{{size.price}}" class="btn btn-outline-secondary btn-sm choose-size color{{size.color__id}}">{{size.size__title}}</button> {% endfor %}
+                    <span class="review-no"></span> {% for tamanho in tamanhos %}
+                    <button data-price="{{tamanho.preco}}" class="btn btn-outline-secondary btn-sm choose-size color{{tamanho.cor__id}}">{{tamanho.tamanho__titulo}}</button> {% endfor %}
                 </h6>
                 <div class="action">
                     <div class="title-but">
@@ -158,20 +158,20 @@
             </div>
             <div class="col-lg-12">
                 <div class="row" style="padding: 0px">
-                    {% for product in related %}
+                    {% for produto in related %}
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="card ">
-                            <a href="/produto/{{product.slug}}/{{product.id}}"><img class="card-img-top" src="/media/{{product.productattribute_set.first.image}}" class="card-img-top" alt="{{product.title}}"></a>
+                            <a href="/produto/{{produto.slug}}/{{produto.id}}"><img class="card-img-top" src="/media/{{produto.productattribute_set.first.image}}" class="card-img-top" alt="{{produto.titulo}}"></a>
                             <div class="card-body text-center">
                                 <div class="card-title">
-                                    <a href="/produto/{{product.slug}}/{{product.id}}">{{product.title}}</a>
+                                    <a href="/produto/{{produto.slug}}/{{produto.id}}">{{produto.titulo}}</a>
                                 </div>
-                                <h6>R$ <strong class="product-price-{{data.id}}">{{data.productattribute_set.first.price}}</strong></h6>
+                                <h6>R$ <strong class="product-price-{{data.id}}">{{data.productattribute_set.first.preco}}</strong></h6>
                                 <div class="cart-icon text-center">
                                     <div class="input-group-append">
                                         <input type="hidden" class="product-image-{{data.id}}" value="{{data.productattribute_set.first.image}}" />
                                         <input type="hidden" class="product-id-{{data.id}}" value="{{data.id}}" />
-                                        <input type="hidden" class="product-title-{{data.id}}" value="{{data.title}}" />
+                                        <input type="hidden" class="product-title-{{data.id}}" value="{{data.titulo}}" />
                                         <button class="btn btn-primary btn-sm add-to-cart" data-index="{{data.id}}" type="button" id="addToCartBtn"><i class="fa fa-shopping-cart"></i> Adicionar ao Carrinho</button>
                                     </div>
                                 </div>
