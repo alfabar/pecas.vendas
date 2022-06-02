@@ -148,7 +148,7 @@ def carregar_mais_dados(request):
 def carrinho_add(request):
     carrinho_p = {}
     carrinho_p[str(request.GET['id'])] = {
-        'imagem': request.GET['image'],
+        'imagem': request.GET['imagem'],
         'titulo': request.GET['titulo'],
         'qty': request.GET['qty'],
         'preco': request.GET['preco'],
@@ -175,7 +175,7 @@ def lista_carrinho(request):
     pedido_total = 0
     if 'cartdata' in request.session:
         for p_id, item in request.session['cartdata'].items():
-            pedido_total += int(item['qty'])*float(item['price'])
+            pedido_total += int(item['qty'])*float(item['preco'])
         return render(request, 'carrinho.html', {'cart_data': request.session['cartdata'], 'totalitems': len(request.session['cartdata']), 'pedido_total': pedido_total})
     else:
         return render(request, 'carrinho.html', {'cart_data': '', 'totalitems': 0, 'pedido_total': pedido_total})

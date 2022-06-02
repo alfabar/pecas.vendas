@@ -11,6 +11,6 @@ def get_filters(request):
 		'marcas':marcas,
 		'cor':cor,
 		'tamanho':tamanho,
-		'minMaxPrice':minMaxPreco,
+		'minMaxPreco':minMaxPreco,
 	}
 	return data

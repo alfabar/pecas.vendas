@@ -83,7 +83,7 @@ $(document).ready(function() {
             url: '/adicionar-carrinho',
             data: {
                 'id': _productId,
-                'image': _productImage,
+                'imagem': _productImage,
                 'qty': _qty,
                 'titulo': _productTitle,
                 'preco': _productPrice

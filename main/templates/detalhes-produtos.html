@@ -30,7 +30,7 @@
                     </h6>
                 </div>
                 <p class="product-description">{{data.detalhes}}</p>
-                <h4>Preço atual:R$ <span class="price product-price-{{data.id}}"></span>{{data.preco}}</h4>
+                <h4>Preço atual:R$ <span class="price product-preco-{{data.id}}">{{data.preco}}</span></h4>
                 <p class="vote"><strong>Tenha 10%</strong> ao se inscrever em nossa loja e preencher nosso cadastro <strong>(Obtenha já!!)</strong></p>
                 <h6 class="sizes">Cor:
                     <span class="review-no"></span> {% for cor in cores %}
@@ -46,7 +46,7 @@
                         <div class="input-group-append">
                             <input type="hidden" class="product-image-{{data.id}}" value="{{data.imagem}}" />
                             <input type="hidden" class="product-id-{{data.id}}" value="{{data.id}}" />
-                            <input type="hidden" class="product-title-{{data.id}}" value="{{data.titulo}}" />
+                            <input type="hidden" class="product-titulo-{{data.id}}" value="{{data.titulo}}" />
                             <hr>
 
                             <button class="btn btn-general btn-white add-to-cart" data-index="{{data.id}}" type="button" id="addToCartBtn" role="button"><i class="fa fa-cart-plus"></i> Adicionar</button>
