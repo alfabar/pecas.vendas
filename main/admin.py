@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Banner,Promocao,Categoria,Marca,Cores,Tamanhos,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
+from .models import Banner,Promocao,Categoria,Marca,Cores,Tamanhos,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista,Entregar
 from django.utils.html import mark_safe
 
 # admin.site.register(Banner)
@@ -58,3 +58,7 @@ admin.site.register(ListaDesejo)
 class UserEnderecoListaAdmin(admin.ModelAdmin):
 	list_display=('user','cep','whathsapp','telefone','endereco','bairro','cidade','estado','status')
 admin.site.register(UserEnderecoLista,UserEnderecoListaAdmin)
+
+class EntregarAdmin(admin.ModelAdmin):
+    list_display=('pedido','cliente')
+admin.site.register(Entregar,EntregarAdmin)
