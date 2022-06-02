@@ -162,7 +162,7 @@ class CarrinhoPedido(models.Model):
 class CarrinhoPedidoItems(models.Model): 
     pedido=models.ForeignKey(CarrinhoPedido,on_delete=models.CASCADE)
     fatura_no=models.CharField(max_length=150)
-    item=models.CharField(max_length=150)
+    item=models.ForeignKey(Produto, on_delete=models.CASCADE)
     imagem=models.CharField(max_length=200)
     qty=models.IntegerField()
     preco=models.FloatField()
@@ -213,3 +213,11 @@ class UserEnderecoLista(models.Model):
     cidade=models.CharField(max_length=90, null=False)
     estado=models.CharField(max_length=90, null=False)
     status=models.BooleanField(default=False)
+    
+    
+class Entregar(models.Model):
+    pedido=models.ForeignKey(CarrinhoPedidoItems, on_delete=models.CASCADE)
+    cliente=models.ForeignKey(User, on_delete=models.CASCADE)    
+    
+    class Meta:
+        verbose_name_plural='Entregar '
