@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Banner,Promocao,Categoria,Marca,Cores,Tamanhos,Produto,ProdutoAtributo,CarrinhoPedido,CarrinhoPedidoItems,ProdutoFeedback,ListaDesejo,UserEnderecoLista
+from django.utils.html import mark_safe
 
 # admin.site.register(Banner)
 
@@ -37,7 +38,7 @@ admin.site.register(ProdutoAtributo,ProdutoAtributoAdmin)
 # Order
 class CarrinhoPedidoAdmin(admin.ModelAdmin):
 	list_editable=('status_pago','pedido_status')
-	list_display=('user','total_amt','status_pago','pedido_dt','pedido_status')
+	list_display=('user','pedido_total','status_pago','pedido_dt','pedido_status')
 admin.site.register(CarrinhoPedido,CarrinhoPedidoAdmin)
 
 class CarrinhoPedidoItemsAdmin(admin.ModelAdmin):
@@ -45,8 +46,9 @@ class CarrinhoPedidoItemsAdmin(admin.ModelAdmin):
 admin.site.register(CarrinhoPedidoItems,CarrinhoPedidoItemsAdmin)
 
 
+
 class ProdutoFeedbackAdmin(admin.ModelAdmin):
-	list_display=('user','produto','review_text','get_review_rating')
+	list_display=('user','produto','texto_avaliacao','get_nota_avaliacao')
 admin.site.register(ProdutoFeedback,ProdutoFeedbackAdmin)
 
 
