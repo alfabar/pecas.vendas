@@ -85,8 +85,8 @@ $(document).ready(function() {
                 'id': _productId,
                 'image': _productImage,
                 'qty': _qty,
-                'title': _productTitle,
-                'price': _productPrice
+                'titulo': _productTitle,
+                'preco': _productPrice
             },
             dataType: 'json',
             beforeSend: function() {

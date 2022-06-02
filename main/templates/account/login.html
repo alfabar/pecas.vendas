@@ -1,16 +1,4 @@
 {% extends "account/base.html" %} {% load i18n %} {% load account socialaccount %} {% block head_title %}{% trans "Sign In" %}{% endblock %} {% block conteudo %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript">
-    // Load jquery straight from the cdn for this page.
-    $(function() {
-        // We need some mappings for Providers names from AllAuth to the icon class names.
-        $('.btn-google').addClass('btn-google-plus');
-        $('.btn-linkedin_oauth2').addClass('btn-linkedin');
-        $('.fa-linkedin_oauth2').addClass('fa-linkedin');
-        $('#id_login').addClass('form-control').removeAttr('autofocus').blur();
-        $('#id_password').addClass('form-control');
-    });
-</script>
 <h1>{% trans "Sign In" %}</h1>
 
 {% get_providers as socialaccount_providers %} {% if socialaccount_providers %} {% include "socialaccount/snippets/login_extra.html" %} {% else %}
@@ -25,17 +13,12 @@
     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary mt-3" type="submit">{% trans "Sign In" %}</button>
 </form>
 <div class="container mt-3">
-    <p>{% blocktrans with site.name as site_name %}Por Favor entre com uma de suas contas de terceiros existentes. Ou, <a href="{{ signup_url }}">inscrever-se</a> for a {{ site_name }} conta e faça login abaixo:{% endblocktrans %}</p>
+    <p>{% blocktrans with site.name as site_name %}Por Favor entre com uma de suas contas de terceiros existentes. Ou,
+        <a href="{{ signup_url }}">inscrever-se</a> for a {{ site_name }} conta e faça login abaixo:{% endblocktrans %}
+    </p>
 
-    <div class="socialaccount_ballot ">
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
 
-        <ul class="socialaccount_providers" style="list-style: none;">
-            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-        </ul>
-
-        <div class="login-or">{% trans 'or' %}</div>
-
-    </div>
 </div>
 
 {% endblock %}

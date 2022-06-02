@@ -24,24 +24,18 @@
 
                 {% if user.is_authenticated %}
 
-                <a class="w-100 py-2 mb-2 btn btn-outline-primary rounded-4" href="{% url 'account_email' %}" type="button">
-                    <svg class="bi me-1" width="16" height="16">
-                            <use xlink:href="#twitter" /></svg> Mude o e-mail
+                <a class="w-100 mb-2 btn btn-outline-primary rounded-4" href="{% url 'account_email' %}" type="button">
+                     Mude o e-mail
                 </a>
                 <a class="w-100 py-2 mb-2 btn btn-outline-primary rounded-4" href="{% url 'account_logout' %}" type="submit">
-                    <svg class="bi me-1" width="16" height="16">
-                            <use xlink:href="#facebook" /></svg> Sair
-                </a>
-                {% else %}
-                <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-4" href="{% url 'account_login' %}" type="submit">
-                    <svg class="bi me-1" width="16" height="16">
-                            <use xlink:href="#github" /></svg> Entrar
+                     Sair
+                </a> {% else %}
+                <a class="w-100 mb-2 btn btn-md rounded-4 mt-3 btn-outline-secondary" href="{% url 'account_login' %}" type="submit">
+                     Entrar
                 </a>
                 <a class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-4" href="{% url 'account_signup' %}" type="submit">
-                    <svg class="bi me-1" width="16" height="16">
-                            <use xlink:href="#github" /></svg> Inscrever-se
-                </a>
-                {% endif %}
+                     Inscrever-se
+                </a> {% endif %}
 
             </form>
         </div>
